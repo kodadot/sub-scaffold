@@ -1,0 +1,26 @@
+{
+  "author": "Branislav Hozza",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "test:unit": "vitest --config ./vitest.config.ts"
+  },
+  "devDependencies": {
+    "@nuxt/test-utils-edge": "^3.0.0-rc.12",
+    "@nuxtjs/eslint-config-typescript": "^11.0.0",
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.6.0",
+    "jsdom": "^20.0.1",
+    "nuxt": "3.0.0-rc.12",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.4",
+    "vitest": "^0.24.3"
+  }
+}
