@@ -13,6 +13,7 @@
   "devDependencies": {
     "@nuxt/test-utils-edge": "^3.0.0-rc.12",
     "@nuxtjs/eslint-config-typescript": "^11.0.0",
+    "@vicons/material": "^0.12.0",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -24,6 +25,10 @@
     "vitest": "^0.24.3"
   },
   "dependencies": {
-    "@pinia/nuxt": "^0.4.3"
+    "@css-render/vue3-ssr": "^0.15.11",
+    "@pinia/nuxt": "^0.4.3",
+    "naive-ui": "^2.33.5",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0"
   }
 }

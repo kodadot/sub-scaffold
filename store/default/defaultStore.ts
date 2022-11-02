@@ -5,8 +5,8 @@ export const useDefaultStore =  defineStore('default',{
         count: 0,
     }),
     actions: {
-        increment() {
-            this.count++;
+        increment(by?: number) {
+            this.count+=by || 1;
         }
     }
 })

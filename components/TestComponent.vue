@@ -1,19 +1,31 @@
 <template>
   <div>
-    <button @click="store.increment">
-      {{ foo ?? "Not defined" }}
-    </button>
+    <n-button @click="store.increment(by)" type="primary" class="entry">
+      Increment by {{ by ?? 1 }}
+      <template #icon>
+        <add-box-filled />
+      </template>
+    </n-button>
     <hr />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useDefaultStore } from "@/store/default/defaultStore";
+
+import { NButton } from "naive-ui";
+import { AddBoxFilled } from "@vicons/material";
 defineProps<{
-  foo?: number;
+  by?: number;
 }>();
 
 const store = useDefaultStore();
 </script>
 
-<style scoped></style>
+<style lang="scss">
+.entry {
+  margin: 10px;
+  min-width: 200px;
+  justify-content: left;
+}
+</style>
