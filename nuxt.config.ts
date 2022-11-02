@@ -9,4 +9,7 @@ export default defineNuxtConfig({
       apiBase: "/api",
     },
   },
+  modules: [
+    '@pinia/nuxt',
+  ]
 });
