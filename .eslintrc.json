@@ -5,7 +5,11 @@
     "es2022": true,
     "node": true
   },
-  "extends": ["@nuxtjs/eslint-config-typescript", "plugin:nuxt/recommended", "plugin:prettier/recommended"],
+  "extends": [
+    "@nuxtjs/eslint-config-typescript",
+    "plugin:nuxt/recommended",
+    "plugin:prettier/recommended"
+  ],
   "parserOptions": {
     "ecmaVersion": "latest",
     "parser": "@typescript-eslint/parser",

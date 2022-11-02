@@ -1,5 +1,5 @@
 import { cryptoWaitReady } from '@polkadot/util-crypto'
 
-export default (): void => {
+export default defineNuxtPlugin(() => {
   cryptoWaitReady()
-}
+})

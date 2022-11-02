@@ -7,17 +7,18 @@
         :key="`k-${val}`"
         :by="val"
       />
+      <n-button @click.stop="store.apiCall()">Test API</n-button>
       <span class="filler" />
     </n-space>
   </div>
 </template>
 
 <script setup lang="ts">
-import TestComponent from "~~/components/TestComponent.vue";
-import { useDefaultStore } from "@/store/default/defaultStore";
-import { NSpace } from "naive-ui";
+import TestComponent from '~~/components/TestComponent.vue'
+import { useDefaultStore } from '@/store/default/defaultStore'
+import { NSpace, NButton } from 'naive-ui'
 
-const store = useDefaultStore();
+const store = useDefaultStore()
 </script>
 
 <style scoped lang="scss">

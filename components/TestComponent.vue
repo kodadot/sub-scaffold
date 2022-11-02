@@ -11,15 +11,15 @@
 </template>
 
 <script setup lang="ts">
-import { useDefaultStore } from "@/store/default/defaultStore";
+import { useDefaultStore } from '@/store/default/defaultStore'
 
-import { NButton } from "naive-ui";
-import { AddBoxFilled } from "@vicons/material";
+import { NButton } from 'naive-ui'
+import { AddBoxFilled } from '@vicons/material'
 defineProps<{
-  by?: number;
-}>();
+  by?: number
+}>()
 
-const store = useDefaultStore();
+const store = useDefaultStore()
 </script>
 
 <style lang="scss">

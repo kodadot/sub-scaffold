@@ -4,7 +4,6 @@
 
 🧪 Quickly experiment with Solidity using a frontend - [Viki Val](https://github.com/vikiival)
 
-
 # 🏄‍♂️ Quick Start
 
 Prerequisites: [Node (v16 LTS)](https://nodejs.org/en/download/) plus [pnpm](https://pnpm.io)
@@ -14,6 +13,7 @@ Prerequisites: [Node (v16 LTS)](https://nodejs.org/en/download/) plus [pnpm](htt
 ```bash
 git clone https://github.com/kodadot/sub-scaffold.git
 ```
+
 > Make sure to install the dependencies:
 
 ```bash
@@ -48,7 +48,7 @@ Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/prese
 All tests should be placed in `tests` directory
 
 ```bash
-yarn test:unit 
+yarn test:unit
 ```
 
 ## Contributors
