@@ -1,29 +1,30 @@
-# Nuxt 3 Starting template
+# 🏗 Sub-Scaffold
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+> everything you need to build on Substrate! 🚀
 
-This repository has prepared folder structure, [Vitest](https://vitest.dev/) testing and eslint configuration.
-## Setup
+🧪 Quickly experiment with Solidity using a frontend - [Viki Val](https://github.com/vikiival)
 
-Make sure to install the dependencies:
+
+# 🏄‍♂️ Quick Start
+
+Prerequisites: [Node (v16 LTS)](https://nodejs.org/en/download/) plus [pnpm](https://pnpm.io)
+
+> clone/fork 🏗 sub-scaffold
 
 ```bash
-# yarn
-yarn install
+git clone https://github.com/kodadot/sub-scaffold.git
+```
+> Make sure to install the dependencies:
 
-# npm
-npm install
-
+```bash
 # pnpm
 pnpm install --shamefully-hoist
 ```
 
-## Development Server
-
-Start the development server on http://localhost:3000
+> Start the development server on http://localhost:3000
 
 ```bash
-yarn dev -o
+pnpm dev -o
 ```
 
 ## Production
@@ -49,3 +50,7 @@ All tests should be placed in `tests` directory
 ```bash
 yarn test:unit 
 ```
+
+## Contributors
+
+Thanks goes to all wonderful people <3

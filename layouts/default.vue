@@ -1,6 +1,6 @@
 <template>
   <n-layout>
-    <n-layout-header>Header</n-layout-header>
+    <navbar/>
     <n-layout-content content-style="padding: 24px;">
       <n-space vertical size="large">
         <slot />
