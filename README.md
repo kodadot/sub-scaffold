@@ -32,13 +32,13 @@ pnpm dev -o
 Build the application for production:
 
 ```bash
-yarn build
+pnpm build
 ```
 
 Locally preview production build:
 
 ```bash
-yarn preview
+pnpm preview
 ```
 
 Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
@@ -48,7 +48,7 @@ Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/prese
 All tests should be placed in `tests` directory
 
 ```bash
-yarn test:unit 
+pnpm test:unit 
 ```
 
 ## Contributors
