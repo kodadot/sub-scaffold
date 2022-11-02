@@ -8,5 +8,5 @@
 <script setup lang="ts">
 import { NConfigProvider, darkTheme, NSpace } from "naive-ui";
 
-const darkT = ref(darkTheme);
+const theme = ref(darkTheme);
 </script>
