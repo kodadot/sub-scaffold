@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :theme="darkT">
+  <n-config-provider :theme="theme">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
