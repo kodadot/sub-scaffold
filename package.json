@@ -26,8 +26,15 @@
   },
   "dependencies": {
     "@css-render/vue3-ssr": "^0.15.11",
+    "@kodadot1/sub-api": "0.1.1-alpha.3",
     "@pinia/nuxt": "^0.4.3",
+    "@polkadot/api": "^9.6.2",
+    "@polkadot/extension-dapp": "^0.44.6",
+    "@polkadot/extension-inject": "^0.44.6",
+    "@polkadot/ui-keyring": "^2.9.12",
+    "@polkadot/vue-identicon": "^2.9.12",
     "naive-ui": "^2.33.5",
+    "ohmyfetch": "^0.4.20",
     "sass": "^1.55.0",
     "sass-loader": "^13.1.0"
   }
