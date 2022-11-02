@@ -2,7 +2,7 @@
 
 > everything you need to build on Substrate! 🚀
 
-🧪 Quickly experiment with Solidity using a frontend - [Viki Val](https://github.com/vikiival)
+🧪 Quickly experiment with Substrate using a frontend - [Viki Val](https://github.com/vikiival)
 
 # 🏄‍♂️ Quick Start
 
@@ -32,13 +32,13 @@ pnpm dev -o
 Build the application for production:
 
 ```bash
-yarn build
+pnpm build
 ```
 
 Locally preview production build:
 
 ```bash
-yarn preview
+pnpm preview
 ```
 
 Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
@@ -48,9 +48,13 @@ Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/prese
 All tests should be placed in `tests` directory
 
 ```bash
-yarn test:unit
+pnpm test:unit 
 ```
 
 ## Contributors
 
 Thanks goes to all wonderful people <3
+
+## Sponsors
+
+[![paraspell](https://user-images.githubusercontent.com/55763425/197985791-fc7afa52-061d-413a-bbe9-bf1123f16a50.png)](https://github.com/paraspell)
