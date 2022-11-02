@@ -2,7 +2,7 @@
 
 > everything you need to build on Substrate! 🚀
 
-🧪 Quickly experiment with Solidity using a frontend - [Viki Val](https://github.com/vikiival)
+🧪 Quickly experiment with Substrate using a frontend - [Viki Val](https://github.com/vikiival)
 
 
 # 🏄‍♂️ Quick Start
@@ -55,4 +55,6 @@ yarn test:unit
 
 Thanks goes to all wonderful people <3
 
-<img src="https://contrib.rocks/image?repo=kodadot/sub-scaffold" />
+## Sponsors
+
+![paraspell](https://user-images.githubusercontent.com/55763425/197985791-fc7afa52-061d-413a-bbe9-bf1123f16a50.png)
