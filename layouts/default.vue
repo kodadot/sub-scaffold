@@ -1,6 +1,6 @@
 <template>
   <n-layout>
-    <navbar/>
+    <navbar />
     <n-layout-content content-style="padding: 24px;">
       <n-space vertical size="large">
         <slot />
@@ -16,5 +16,5 @@ import {
   NLayoutFooter,
   NLayoutHeader,
   NSpace,
-} from "naive-ui";
+} from 'naive-ui'
 </script>

@@ -1,9 +1,9 @@
 export default defineAppConfig({
-  title: "B App",
+  title: 'B App',
   theme: {
     dark: true,
     colors: {
-      primary: "#ff0000",
+      primary: '#ff0000',
     },
   },
-});
+})

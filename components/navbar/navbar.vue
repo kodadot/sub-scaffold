@@ -12,34 +12,34 @@ import {
   HomeFilled as HomeIcon,
 } from '@vicons/material'
 
-function renderIcon (icon: Component) {
+function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) })
 }
 
 const menuOptions: MenuOption[] = [
-{
+  {
     label: () =>
       h(
         'a',
         {
-          href: '/'
+          href: '/',
         },
         { default: () => 'Going Home' }
       ),
     key: 'go-back-home',
-    icon: renderIcon(HomeIcon)
+    icon: renderIcon(HomeIcon),
   },
   {
     label: () =>
       h(
         'a',
         {
-          href: '/about'
+          href: '/about',
         },
         { default: () => 'About' }
       ),
     key: 'about',
-    icon: renderIcon(PersonIcon)
+    icon: renderIcon(PersonIcon),
   },
   {
     label: () =>
@@ -48,25 +48,25 @@ const menuOptions: MenuOption[] = [
         {
           href: 'https://github.com/kodadot/sub-scaffold',
           target: '_blank',
-          rel: 'noopenner noreferrer'
+          rel: 'noopenner noreferrer',
         },
         'Github '
       ),
     key: 'hear-the-wind-sing',
-    icon: renderIcon(BookIcon)
+    icon: renderIcon(BookIcon),
   },
 ]
 
 export default defineComponent({
   components: {
     NMenu,
-    NIcon
+    NIcon,
   },
-  setup () {
+  setup() {
     return {
       activeKey: ref<string | null>(null),
-      menuOptions
+      menuOptions,
     }
-  }
+  },
 })
 </script>
