@@ -8,6 +8,7 @@
         :by="val"
       />
       <n-button @click.stop="store.apiCall()">Test API</n-button>
+      <AssetComponent />
       <span class="filler" />
     </n-space>
   </div>
