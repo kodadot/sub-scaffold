@@ -57,4 +57,4 @@ Thanks goes to all wonderful people <3
 
 ## Sponsors
 
-![paraspell](https://user-images.githubusercontent.com/55763425/197985791-fc7afa52-061d-413a-bbe9-bf1123f16a50.png)
+[![paraspell](https://user-images.githubusercontent.com/55763425/197985791-fc7afa52-061d-413a-bbe9-bf1123f16a50.png)](https://github.com/paraspell)
