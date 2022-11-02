@@ -54,3 +54,5 @@ yarn test:unit
 ## Contributors
 
 Thanks goes to all wonderful people <3
+
+<img src="https://contrib.rocks/image?repo=kodadot/sub-scaffold" />
