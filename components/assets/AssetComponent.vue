@@ -1,17 +1,18 @@
 <template>
   <NSpace vertical class="asset-wrapper">
-    <NSpace
-      >Send to:
-      <NSwitch>
-        <template #checked>Myself</template>
+    <NSpace>
+      Send to:
+      <NSwitch v-model:value="forMe">
         <template #unchecked>Address</template>
         <template #unchecked-icon>
           <n-icon :component="ArrowForwardOutlined" />
         </template>
+        <template #checked>Myself</template>
         <template #checked-icon>
           <n-icon :component="ArrowBackOutlined" />
-        </template> </NSwitch
-    ></NSpace>
+        </template>
+      </NSwitch>
+    </NSpace>
 
     <NSpace>
       <NSelect
@@ -28,7 +29,9 @@
         :precision="3"
         :disabled="!selectedCurrency"
       />
-      <NButton type="primary" @click="onSend">Send</NButton>
+      <NButton type="primary" :disabled="!canSend" @click="onSend">
+        Send
+      </NButton>
     </NSpace>
   </NSpace>
 </template>
@@ -47,7 +50,12 @@ import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material'
 
 const assetsStore = useAssetsStore()
 
-const balance = ref(0)
+// Load currencies
+const selectedCurrency = ref<string>()
+onMounted(async () => {
+  await assetsStore.fetchCurrencies()
+  selectedCurrency.value = assetsStore.currencies[0]?.id
+})
 
 const options = computed(() =>
   assetsStore.currencies.map<SelectOption>((x) => ({
@@ -55,17 +63,16 @@ const options = computed(() =>
     value: x.id,
   }))
 )
+// For me logic
+const forMe = ref(false)
 
-const selectedCurrency = ref<string>()
+// Balance logic
+const balance = ref(0)
 
-onMounted(async () => {
-  await assetsStore.fetchCurrencies()
-  selectedCurrency.value = assetsStore.currencies[0]?.id
-})
-
+const canSend = computed(() => balance.value > 0 && selectedCurrency.value)
 const onSend = () => {
   if (selectedCurrency.value) {
-    assetsStore.send(balance.value, selectedCurrency.value)
+    assetsStore.send(balance.value, selectedCurrency.value, forMe.value)
   }
 }
 </script>

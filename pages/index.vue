@@ -15,7 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import TestComponent from '~~/components/TestComponent.vue'
+import TestComponent from '@/components/TestComponent.vue'
+import AssetComponent from '@/components/assets/AssetComponent.vue'
 import { useDefaultStore } from '@/store/default/defaultStore'
 import { NSpace, NButton } from 'naive-ui'
 
