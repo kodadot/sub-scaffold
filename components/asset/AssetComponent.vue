@@ -1,47 +1,60 @@
 <template>
-  <NInputNumber v-model:value="ksmBalance" />
-  <p>{{ prettifyBalance(fullBalance) }}</p>
-  <NButton @click="incrementInner">
-    <template #icon>
-      <ArrowUpwardFilled />
-    </template>
-  </NButton>
-  <NButton @click="decrementInner">
-    <template #icon>
-      <ArrowDownwardFilled />
-    </template>
-  </NButton>
+  <NSpace class="asset-wrapper">
+    <NSelect
+      v-model:value="selectedCurrency"
+      :options="options"
+      class="currency-select"
+    />
+    <NInputNumber
+      v-model:value="balance"
+      step="0.001"
+      min="0"
+      :precision="3"
+      :disabled="!selectedCurrency"
+    />
+    <NButton type="primary" @click="onSend">Send</NButton>
+  </NSpace>
 </template>
 <script lang="ts" setup>
-import { NInputNumber, NButton } from 'naive-ui'
-import { ArrowUpwardFilled, ArrowDownwardFilled } from '@vicons/material'
-const ksmBalance = ref(0)
+import { useAssetsStore } from '@/store/assets/assetsStore'
+import {
+  NButton,
+  NInputNumber,
+  NSelect,
+  NSpace,
+  type SelectOption,
+} from 'naive-ui'
 
-const innerControl = ref(0)
+const assetsStore = useAssetsStore()
 
-const decrementInner = () => {
-  innerControl.value--
-}
+const balance = ref(0)
 
-const incrementInner = () => {
-  innerControl.value++
-}
+const options = computed(() =>
+  assetsStore.currencies.map<SelectOption>((x) => ({
+    label: x.name,
+    value: x.id,
+  }))
+)
 
-const fullBalance = computed(() => {
-  return ksmBalance.value * 1000_000_000_000 + innerControl.value
+const selectedCurrency = ref<string>()
+
+onMounted(async () => {
+  await assetsStore.fetchCurrencies()
+  selectedCurrency.value = assetsStore.currencies[0]?.id
 })
 
-/**
- * Regex magic to make it readable
- */
-const prettifyBalance = (balance: number) =>
-  String(balance)
-    .split('')
-    .reverse()
-    .join('')
-    .replace(/(\d{3})/g, '$1,')
-    .split('')
-    .reverse()
-    .join('')
-    .replace(/^,/, '')
+const onSend = () => {
+  if (selectedCurrency.value) {
+    assetsStore.send(balance.value, selectedCurrency.value)
+  }
+}
 </script>
+<style lang="scss">
+.asset-wrapper {
+  margin: 10px;
+  margin-top: 20px;
+}
+.currency-select {
+  width: 100px;
+}
+</style>
