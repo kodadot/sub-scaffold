@@ -8,13 +8,15 @@
         :by="val"
       />
       <n-button @click.stop="store.apiCall()">Test API</n-button>
+      <AssetComponent />
       <span class="filler" />
     </n-space>
   </div>
 </template>
 
 <script setup lang="ts">
-import TestComponent from '~~/components/TestComponent.vue'
+import TestComponent from '@/components/TestComponent.vue'
+import AssetComponent from '@/components/assets/AssetComponent.vue'
 import { useDefaultStore } from '@/store/default/defaultStore'
 import { NSpace, NButton } from 'naive-ui'
 
