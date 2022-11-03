@@ -1,18 +1,35 @@
 <template>
-  <NSpace class="asset-wrapper">
-    <NSelect
-      v-model:value="selectedCurrency"
-      :options="options"
-      class="currency-select"
-    />
-    <NInputNumber
-      v-model:value="balance"
-      step="0.001"
-      min="0"
-      :precision="3"
-      :disabled="!selectedCurrency"
-    />
-    <NButton type="primary" @click="onSend">Send</NButton>
+  <NSpace vertical class="asset-wrapper">
+    <NSpace
+      >Send to:
+      <NSwitch>
+        <template #checked>Myself</template>
+        <template #unchecked>Address</template>
+        <template #unchecked-icon>
+          <n-icon :component="ArrowForwardOutlined" />
+        </template>
+        <template #checked-icon>
+          <n-icon :component="ArrowBackOutlined" />
+        </template> </NSwitch
+    ></NSpace>
+
+    <NSpace>
+      <NSelect
+        v-model:value="selectedCurrency"
+        :options="options"
+        class="currency-select"
+        placeholder="Select currency"
+      />
+      <NInputNumber
+        v-model:value="balance"
+        placeholder="Balance"
+        step="0.001"
+        min="0"
+        :precision="3"
+        :disabled="!selectedCurrency"
+      />
+      <NButton type="primary" @click="onSend">Send</NButton>
+    </NSpace>
   </NSpace>
 </template>
 <script lang="ts" setup>
@@ -22,8 +39,11 @@ import {
   NInputNumber,
   NSelect,
   NSpace,
+  NSwitch,
+  NIcon,
   type SelectOption,
 } from 'naive-ui'
+import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material'
 
 const assetsStore = useAssetsStore()
 
