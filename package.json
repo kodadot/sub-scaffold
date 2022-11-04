@@ -33,6 +33,7 @@
     "@polkadot/extension-inject": "^0.44.6",
     "@polkadot/ui-keyring": "^2.9.12",
     "@polkadot/vue-identicon": "^2.9.12",
+    "consola": "^2.15.3",
     "naive-ui": "^2.33.5",
     "ohmyfetch": "^0.4.20",
     "sass": "^1.55.0",
