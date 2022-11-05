@@ -36,7 +36,7 @@
   </NSpace>
 </template>
 <script lang="ts" setup>
-import { useAssetsStore } from '@/store/assets/assetsStore'
+import { useAssetsStore } from '@/store/assets'
 import {
   NButton,
   NInputNumber,

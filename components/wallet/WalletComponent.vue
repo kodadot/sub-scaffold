@@ -12,15 +12,29 @@
       @close="cancelModal"
     >
       <n-space vertical :size="[10, 20]">
-        <n-button class="wallet-button" type="primary">Metamask</n-button>
-        <n-button class="wallet-button" type="primary">Polkadot.js</n-button>
+        <n-button
+          v-for="wallet in wallets"
+          :key="wallet.id"
+          class="wallet-button"
+          type="primary"
+          >{{ wallet.name }}</n-button
+        >
         <n-button class="wallet-button" @click="cancelModal">Cancel</n-button>
       </n-space>
     </n-card>
   </n-modal>
 </template>
 <script setup lang="ts">
+import { useWalletStore } from '@/store/wallet'
 import { NButton, NModal, NSpace, NCard } from 'naive-ui'
+
+const walletStore = useWalletStore()
+
+onMounted(async () => {
+  await walletStore.fetchWallets()
+})
+
+const wallets = computed(() => walletStore.wallets)
 
 const modalState = ref(false)
 

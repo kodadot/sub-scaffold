@@ -18,7 +18,7 @@ import {
   PersonAddAlt1Filled as PersonIcon,
   HomeFilled as HomeIcon,
 } from '@vicons/material'
-import WalletComponent from '../wallet/WalletComponent.vue'
+import WalletComponent from '@/components/wallet/WalletComponent.vue'
 
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) })
