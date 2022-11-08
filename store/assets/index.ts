@@ -1,5 +1,12 @@
 import { Currency } from '@/types/currency'
 import { defineStore } from 'pinia'
+import Consola from 'consola'
+
+const logger = Consola.create({
+  defaults: {
+    tag: 'store::assets:',
+  },
+})
 
 type State = {
   currencies: Currency[]
@@ -31,7 +38,7 @@ export const useAssetsStore = defineStore({
       //TODO: send transaction
       const decimals =
         this.currencies.find((c) => c.id === currencyId)?.decimals ?? 1
-      console.log('send', balance * 10 ** decimals, currencyId, forMe)
+      logger.success('send', balance * 10 ** decimals, currencyId, forMe)
     },
   },
 })

@@ -20,7 +20,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.6.0",
     "jsdom": "^20.0.1",
-    "nuxt": "3.0.0-rc.12",
+    "nuxt": "3.0.0-rc.13",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4",
     "vitest": "^0.24.3"
@@ -34,6 +34,7 @@
     "@polkadot/extension-inject": "^0.44.6",
     "@polkadot/ui-keyring": "^2.9.12",
     "@polkadot/vue-identicon": "^2.9.12",
+    "consola": "^2.15.3",
     "naive-ui": "^2.33.5",
     "ohmyfetch": "^0.4.20",
     "sass": "^1.55.0",
