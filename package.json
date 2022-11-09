@@ -8,7 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test:unit": "vitest --config ./vitest.config.ts"
+    "test:unit": "vitest --config ./vitest.config.ts",
+    "fresh": "rm -rf ./node_modules && pnpm i && pnpm postinstall && pnpm dev"
   },
   "devDependencies": {
     "@nuxt/test-utils-edge": "^3.0.0-rc.12",
