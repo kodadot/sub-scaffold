@@ -1,8 +1,10 @@
-import { Wallet } from '@/types/wallets'
+import { web3Accounts, isWeb3Injected } from '@polkadot/extension-dapp'
+import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types'
 import { defineStore } from 'pinia'
 
 type State = {
-  wallets: Wallet[]
+  wallets: InjectedAccountWithMeta[]
+  selected?: InjectedAccountWithMeta
 }
 
 export const useWalletStore = defineStore({
@@ -15,12 +17,10 @@ export const useWalletStore = defineStore({
      * Fetches the list of wallets from the API
      */
     async fetchWallets() {
-      //TODO: fetch wallets from API
-      this.wallets = [
-        { id: 'pdjs', name: 'PolkadotJS' },
-        { id: 'talisman', name: 'Talisman' },
-        { id: 'subw', name: 'SubWallet' },
-      ]
+      if (isWeb3Injected) {
+        throw 'Test'
+        this.wallets = await web3Accounts()
+      }
     },
   },
 })
