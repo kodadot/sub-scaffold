@@ -16,11 +16,8 @@ export const useWalletStore = defineStore({
     /**
      * Fetches the list of wallets from the API
      */
-    async fetchWallets() {
-      if (isWeb3Injected) {
-        throw 'Test'
-        this.wallets = await web3Accounts()
-      }
+    async setWallets(wallets: InjectedAccountWithMeta[]) {
+      this.wallets = wallets
     },
   },
 })
