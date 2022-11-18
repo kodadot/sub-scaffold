@@ -17,6 +17,7 @@ import {
   BookFilled as BookIcon,
   PersonAddAlt1Filled as PersonIcon,
   HomeFilled as HomeIcon,
+  SettingsApplicationsRound,
 } from '@vicons/material'
 import WalletComponent from '@/components/wallet/WalletComponent.vue'
 
@@ -48,6 +49,18 @@ const menuOptions: MenuOption[] = [
       ),
     key: 'about',
     icon: renderIcon(PersonIcon),
+  },
+  {
+    label: () =>
+      h(
+        'a',
+        {
+          href: '/settings',
+        },
+        { default: () => 'Settings' }
+      ),
+    key: 'settings',
+    icon: renderIcon(SettingsApplicationsRound),
   },
   {
     label: () =>
