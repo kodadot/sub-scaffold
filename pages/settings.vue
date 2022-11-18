@@ -1,32 +1,29 @@
 <template>
-    <div>
+    <NSpace vertical class="wrapper">
 
         <h1>Welcome to settings page!</h1>
         <p>This page is for creating and managing stuffs</p>
-        
 
         <h3>Connector for sub-api</h3>
-        <NSpace>
-            <NText v-model:value="subApiUrl" placeholder="Enter Sub-api url" />
-            <NButton type="primary" @click="onSend">Connect</NButton>
-        </NSpace>
-        
-        
-        <span class="filler" />
-    </div>
+
+        <n-input v-model:value="subApiUrl" type="text" placeholder="Enter subAPI URL"/>
+        <NButton type="primary" :disabled="!canConnect" @click="onConnect">
+            Connect
+        </NButton>
+
+    </NSpace>
+    <span class="filler"></span>
 </template>
 
-<script setup lang="ts">
-
+<script lang="ts" setup>
 import { useDefaultStore } from '@/store/default'
-import { NSpace, NButton, NText } from 'naive-ui'
+import { NSpace, NInput, NButton } from 'naive-ui'
 
-const store = useDefaultStore()
+const subApiUrl = ref<string>();
+const canConnect = computed(() => subApiUrl.value !== '');
 
-let subApiUrl: string = '';
-
-const onSend = () => {
-    console.log(subApiUrl);
+const onConnect = () => {
+    console.log(subApiUrl.value);
 }
 
 </script>
@@ -36,8 +33,8 @@ const onSend = () => {
     min-height: 60vh;
     display: block;
 }
+.wrapper {
+  margin: 10px;
+  margin-top: 20px;
+}
 </style>
-  
-
-:precision="3"
-:disabled="!selectedCurrency"
