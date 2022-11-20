@@ -1,6 +1,6 @@
 <template>
   <n-button style="margin: 10px" @click="showModal">
-    Connect your wallet
+    {{ walletStore.selected ? selected : 'Connect your wallet' }}
   </n-button>
   <n-modal v-model:show="modalState">
     <n-card
@@ -18,7 +18,7 @@
           style="width: 100%"
           type="primary"
         >
-          {{ wallet.meta.source }} [[ {{ wallet.meta.name }} ]]
+          {{ wallet.meta.source }} ({{ wallet.meta.name }})
         </n-button>
         <n-button style="width: 100%" @click="cancelModal">Cancel</n-button>
       </n-space>
@@ -38,6 +38,11 @@ onMounted(async () => {
 })
 
 const wallets = computed(() => walletStore.wallets)
+
+const selected = computed(
+  () =>
+    `${walletStore.selected?.meta?.source} (${walletStore.selected?.meta?.name})`
+)
 
 const modalState = ref(false)
 
