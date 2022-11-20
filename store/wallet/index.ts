@@ -19,5 +19,14 @@ export const useWalletStore = defineStore({
     async setWallets(wallets: InjectedAccountWithMeta[]) {
       this.wallets = wallets
     },
+    /**
+     * Set current wallet
+     */
+    selectWallet(address: string) {
+      this.selected = this.wallets.find((w) => w.address === address)
+      if (!this.selected) {
+        throw new Error('Cannot locate this wallet')
+      }
+    },
   },
 })

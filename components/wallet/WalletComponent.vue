@@ -17,6 +17,7 @@
           :key="wallet.meta.name"
           style="width: 100%"
           type="primary"
+          @click="selectWallet(wallet.address)"
         >
           {{ wallet.meta.source }} ({{ wallet.meta.name }})
         </n-button>
@@ -38,6 +39,10 @@ onMounted(async () => {
 })
 
 const wallets = computed(() => walletStore.wallets)
+
+const selectWallet = (address: string) => {
+  walletStore.selectWallet(address)
+}
 
 const selected = computed(
   () =>
