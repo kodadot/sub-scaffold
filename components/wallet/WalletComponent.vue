@@ -1,7 +1,7 @@
 <template>
-  <n-button class="connect-button" @click="showModal"
-    >Connect your wallet</n-button
-  >
+  <n-button style="margin: 10px" @click="showModal">
+    {{ walletStore.selected ? selected : 'Connect your wallet' }}
+  </n-button>
   <n-modal v-model:show="modalState">
     <n-card
       style="padding: 5px; width: 300px"
@@ -14,28 +14,30 @@
       <n-space vertical :size="[10, 20]">
         <n-button
           v-for="wallet in wallets"
-          :key="wallet.id"
-          class="wallet-button"
+          :key="wallet.meta.name"
+          style="width: 100%"
           type="primary"
-          >{{ wallet.name }}</n-button
+          @click="selectWallet(wallet.address)"
         >
-        <n-button class="wallet-button" @click="cancelModal">Cancel</n-button>
+          {{ wallet.meta.source }} ({{ wallet.meta.name }})
+        </n-button>
+        <n-button style="width: 100%" @click="cancelModal">Cancel</n-button>
       </n-space>
     </n-card>
   </n-modal>
 </template>
 <script setup lang="ts">
 import { useWalletStore } from '@/store/wallet'
+import { web3Accounts, web3Enable } from '@polkadot/extension-dapp'
 import { NButton, NModal, NSpace, NCard } from 'naive-ui'
 
 const walletStore = useWalletStore()
 
 onMounted(async () => {
-  await walletStore.fetchWallets()
+  await web3Enable('subscaffold dapp')
+  walletStore.setWallets(await web3Accounts())
 })
-
-const wallets = computed(() => walletStore.wallets)
-
+// Modals logic
 const modalState = ref(false)
 
 const showModal = () => {
@@ -45,13 +47,17 @@ const showModal = () => {
 const cancelModal = () => {
   modalState.value = false
 }
-</script>
-<style lang="scss">
-.connect-button {
-  margin: 10px;
+
+//Wallets
+const wallets = computed(() => walletStore.wallets)
+
+const selectWallet = (address: string) => {
+  walletStore.selectWallet(address)
+  cancelModal()
 }
 
-.wallet-button {
-  width: 100%;
-}
-</style>
+const selected = computed(
+  () =>
+    `${walletStore.selected?.meta?.source} (${walletStore.selected?.meta?.name})`
+)
+</script>

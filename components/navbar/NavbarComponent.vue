@@ -5,13 +5,18 @@
       mode="horizontal"
       :options="menuOptions"
     />
-    <WalletComponent />
+    <client-only>
+      <WalletComponent />
+      <template #fallback>
+        <n-button style="margin: 10px" disabled> Loading wallets... </n-button>
+      </template>
+    </client-only>
   </n-space>
 </template>
 
-<script lang="ts">
-import { defineComponent, h, ref, Component } from 'vue'
-import { NIcon, NMenu, NSpace } from 'naive-ui'
+<script lang="ts" setup>
+import { h, ref, Component } from 'vue'
+import { NIcon, NMenu, NSpace, NButton } from 'naive-ui'
 import type { MenuOption } from 'naive-ui'
 import {
   BookFilled as BookIcon,
@@ -65,17 +70,5 @@ const menuOptions: MenuOption[] = [
   },
 ]
 
-export default defineComponent({
-  components: {
-    NMenu,
-    NIcon,
-    NSpace,
-  },
-  setup() {
-    return {
-      activeKey: ref<string | null>(null),
-      menuOptions,
-    }
-  },
-})
+const activeKey = ref<string | null>(null)
 </script>
