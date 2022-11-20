@@ -17,6 +17,6 @@
   },
   "plugins": ["@typescript-eslint", "vue", "nuxt"],
   "rules": {
-    "prettier": "error/error"
+    "prettier": "error/error",
   }
 }
