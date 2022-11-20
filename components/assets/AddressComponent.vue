@@ -9,6 +9,8 @@
         v-model:value="address"
         placeholder="Address"
         @change="handleInput"
+        autosize
+        style="min-width: 300px"
       />
     </NFormItem>
   </NSpace>
@@ -20,10 +22,16 @@ import correctFormat from '@/utils/ss58Format'
 import { checkAddress, isAddress } from '@polkadot/util-crypto'
 import { NFormItem, NInput, NSpace } from 'naive-ui'
 
-const props = defineProps<{
-  strict: boolean
-  emptyOnError: boolean
-}>()
+const props = defineProps({
+  strict: {
+    type: Boolean,
+    default: false,
+  },
+  emptyOnError: {
+    type: Boolean,
+    default: false,
+  },
+})
 
 const { urlPrefix } = usePrefix()
 
