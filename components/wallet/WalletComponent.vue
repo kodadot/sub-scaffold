@@ -37,18 +37,7 @@ onMounted(async () => {
   await web3Enable('subscaffold dapp')
   walletStore.setWallets(await web3Accounts())
 })
-
-const wallets = computed(() => walletStore.wallets)
-
-const selectWallet = (address: string) => {
-  walletStore.selectWallet(address)
-}
-
-const selected = computed(
-  () =>
-    `${walletStore.selected?.meta?.source} (${walletStore.selected?.meta?.name})`
-)
-
+// Modals logic
 const modalState = ref(false)
 
 const showModal = () => {
@@ -58,4 +47,17 @@ const showModal = () => {
 const cancelModal = () => {
   modalState.value = false
 }
+
+//Wallets
+const wallets = computed(() => walletStore.wallets)
+
+const selectWallet = (address: string) => {
+  walletStore.selectWallet(address)
+  cancelModal()
+}
+
+const selected = computed(
+  () =>
+    `${walletStore.selected?.meta?.source} (${walletStore.selected?.meta?.name})`
+)
 </script>
