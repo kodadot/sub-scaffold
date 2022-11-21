@@ -15,7 +15,7 @@ export const toChainProperty = (
   }
 }
 
-const DEFAULT_CHAIN_PROPERTIES: ChainProperties = toChainProperty(
+const DEFAULT_CHAIN_PROPERTIES = toChainProperty(
   2,
   12,
   'KSM',
@@ -47,6 +47,17 @@ export const chainPropListOf = (
 
 export const ss58Of = (prefix: Prefix | keyof Config): number => {
   return chainPropListOf(prefix).ss58Format
+}
+
+export const correctAddressFormat = (ss58?: number | string | null): number => {
+  switch (typeof ss58) {
+    case 'number':
+      return ss58
+    case 'string':
+      return Number(ss58) >= 0 ? Number(ss58) : 42
+    default:
+      return 42
+  }
 }
 
 export const blockExplorerOf = (

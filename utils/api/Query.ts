@@ -1,4 +1,4 @@
-import correctFormat from '@/utils/ss58Format'
+import { correctAddressFormat } from '@/utils/config/chain.config'
 import type { ApiPromise } from '@polkadot/api'
 import BN from 'bn.js'
 
@@ -10,7 +10,7 @@ export type ChainProperties = {
   genesisHash?: string
 }
 
-class Query {
+class ChainQuery {
   static async getNonce(api: ApiPromise, address: string): Promise<BN> {
     const { nonce } = await api.query.system.account(address)
     return nonce.toBn()
@@ -27,11 +27,11 @@ class Query {
   static getChainProperties(api: ApiPromise): ChainProperties {
     const { chainSS58, chainDecimals, chainTokens } = api.registry
     return {
-      ss58Format: correctFormat(chainSS58),
+      ss58Format: correctAddressFormat(chainSS58),
       tokenDecimals: chainDecimals[0] || 12,
       tokenSymbol: chainTokens[0] || 'Unit',
     }
   }
 }
 
-export default Query
+export default ChainQuery

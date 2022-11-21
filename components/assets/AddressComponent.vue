@@ -16,9 +16,6 @@
   </NSpace>
 </template>
 <script lang="ts" setup>
-import usePrefix from '@/composables/usePrefix'
-import { ss58Of } from '@/utils/config/chain.config'
-import correctFormat from '@/utils/ss58Format'
 import { checkAddress, isAddress } from '@polkadot/util-crypto'
 import { NFormItem, NInput, NSpace } from 'naive-ui'
 
@@ -47,7 +44,7 @@ const ss58Format = computed(() =>
 )
 const handleInput = (value: string) => {
   if (props.strict) {
-    const [, err] = checkAddress(value, correctFormat(ss58Format.value))
+    const [, err] = checkAddress(value, correctAddressFormat(ss58Format.value))
     error.value = value ? err : ''
   } else {
     if (!props.emptyOnError && !value) {

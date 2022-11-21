@@ -5,15 +5,7 @@ export default function () {
 
   const urlPrefix = computed(() => store.currentUrlPrefix)
 
-  const client = computed(() =>
-    urlPrefix.value === 'rmrk' ? 'subsquid' : urlPrefix.value
-  )
-
-  const isMoonriver = computed(() => urlPrefix.value === 'movr')
-
   return {
     urlPrefix,
-    client,
-    isMoonriver,
   }
 }
