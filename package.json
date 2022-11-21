@@ -13,7 +13,7 @@
     "fresh": "rm -rf ./node_modules && pnpm i && pnpm postinstall && pnpm dev"
   },
   "devDependencies": {
-    "@nuxt/test-utils-edge": "^3.0.0-rc.12",
+    "@nuxt/test-utils-edge": "^3.0.1-rc.0-27814436.13e4f8b",
     "@nuxtjs/eslint-config-typescript": "^11.0.0",
     "@vicons/material": "^0.12.0",
     "eslint": "^8.26.0",
@@ -21,7 +21,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.6.0",
     "jsdom": "^20.0.1",
-    "nuxt": "3.0.0-rc.13",
+    "nuxt": "3.0.0",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4",
     "vitest": "^0.24.3"
