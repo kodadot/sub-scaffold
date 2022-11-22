@@ -1,4 +1,3 @@
-import { web3Accounts, isWeb3Injected } from '@polkadot/extension-dapp'
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types'
 import { defineStore } from 'pinia'
 
