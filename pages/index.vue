@@ -9,7 +9,7 @@
       />
       <n-button @click.stop="store.apiCall()">Test API</n-button>
       <AssetComponent />
-      <AddressComponent strict />
+      <AddressComponent />
       <span class="filler" />
     </n-space>
   </div>

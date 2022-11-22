@@ -10,6 +10,7 @@ export const useMainStore = defineStore({
   state: (): State => ({}),
   actions: {},
   getters: {
+    // if you need you can implement your prefix
     currentUrlPrefix(): Prefix | undefined {
       return this.urlPrefix
     },
