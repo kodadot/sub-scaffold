@@ -6,7 +6,9 @@
         <slot />
       </n-space>
     </n-layout-content>
-    <n-layout-footer>Footer</n-layout-footer>
+    <n-layout-footer>
+      <footer-component />
+    </n-layout-footer>
   </n-layout>
 </template>
 <script setup lang="ts">
