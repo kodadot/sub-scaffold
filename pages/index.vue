@@ -27,7 +27,7 @@ const store = useDefaultStore()
 
 <style scoped lang="scss">
 .filler {
-  min-height: 60vh;
+  min-height: 20vh;
   display: block;
 }
 </style>

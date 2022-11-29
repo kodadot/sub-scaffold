@@ -1,7 +1,7 @@
 <template>
   <NSpace>
     <NFormItem
-      label="Address"
+      label="Address test:"
       :validation-status="getValidationStatus(error)"
       :feedback="error ? error : undefined"
     >

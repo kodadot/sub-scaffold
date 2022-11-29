@@ -1,5 +1,5 @@
 <template>
-  <NSpace vertical class="asset-wrapper">
+  <NSpace vertical>
     <NSpace>
       Send to:
       <NSwitch v-model:value="forMe">
@@ -37,16 +37,16 @@
 </template>
 <script lang="ts" setup>
 import { useAssetsStore } from '@/store/assets'
+import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material'
 import {
   NButton,
+  NIcon,
   NInputNumber,
   NSelect,
   NSpace,
   NSwitch,
-  NIcon,
   type SelectOption,
 } from 'naive-ui'
-import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material'
 
 const assetsStore = useAssetsStore()
 
@@ -77,10 +77,6 @@ const onSend = () => {
 }
 </script>
 <style lang="scss">
-.asset-wrapper {
-  margin: 10px;
-  margin-top: 20px;
-}
 .currency-select {
   width: 100px;
 }
