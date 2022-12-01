@@ -8,7 +8,7 @@ import { defineStore } from 'pinia'
 
 const logger = createLogger('store::substrate')
 
-type ConnectionState = 'INIT' | 'CONNECTING' | 'READY' | 'ERROR'
+type ConnectionState = 'NONE' | 'INIT' | 'CONNECTING' | 'READY' | 'ERROR'
 
 type KeyringState = 'LOADING' | 'READY' | 'ERROR'
 
@@ -16,7 +16,7 @@ type State = {
   socket: string
   jsonrpc: typeof jsonrpc
   api?: ApiPromise
-  apiState?: ConnectionState
+  apiState: ConnectionState
   apiError?: Error
   typeRegistry: TypeRegistry
   keyring?: typeof Keyring
@@ -26,6 +26,7 @@ export const useSubstrateStore = defineStore('substrate', {
   state: (): State => ({
     socket: import.meta.env.VITE_WS_PROVIDER as string,
     typeRegistry: new TypeRegistry(),
+    apiState: 'NONE',
     jsonrpc,
   }),
   actions: {
@@ -51,18 +52,24 @@ export const useSubstrateStore = defineStore('substrate', {
       }
     },
     async connect() {
-      if (this.apiState) {
+      if (this.apiState !== 'NONE') {
         logger.error('You are alredy connected')
         return
       }
-      logger.success(`Connect to socket: ${this.socket}`)
+      logger.info(`Connecting to socket: ${this.socket}`)
+
+      this.setConnectionState('INIT')
 
       const provider = new WsProvider(this.socket)
       try {
-        const _api = await ApiPromise.create({ provider, rpc: this.jsonrpc })
-        this.setConnectionState('CONNECTING', _api)
-        await _api.isReady
-        this.setConnectionState('READY')
+        const _api = new ApiPromise({ provider, rpc: this.jsonrpc })
+
+        _api.on('connected', () => {
+          this.setConnectionState('CONNECTING', _api)
+          _api.isReady.then(() => this.setConnectionState('READY'))
+        })
+        _api.on('ready', () => this.setConnectionState('READY'))
+        _api.on('error', (e) => this.setConnectionState('ERROR', e))
       } catch (err) {
         this.setConnectionState('ERROR', err as Error)
       }
