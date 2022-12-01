@@ -1,10 +1,8 @@
 <template>
   <n-config-provider :theme="theme">
-    <client-only>
-      <NuxtLayout>
-        <NuxtPage />
-      </NuxtLayout>
-    </client-only>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </n-config-provider>
 </template>
 <script setup lang="ts">

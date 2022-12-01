@@ -5,10 +5,12 @@
       mode="horizontal"
       :options="menuOptions"
     />
-    <WalletComponent />
-    <template #fallback>
-      <n-button style="margin: 10px" disabled> Loading wallets... </n-button>
-    </template>
+    <client-only>
+      <WalletComponent />
+      <template #fallback>
+        <n-button style="margin: 10px" disabled> Loading wallets... </n-button>
+      </template>
+    </client-only>
   </n-space>
 </template>
 

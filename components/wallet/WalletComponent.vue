@@ -29,12 +29,12 @@
 <script setup lang="ts">
 import { useWalletStore } from '@/store/wallet'
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp'
-import { NButton, NModal, NSpace, NCard } from 'naive-ui'
+import { NButton, NCard, NModal, NSpace } from 'naive-ui'
 
 const walletStore = useWalletStore()
 
 onMounted(async () => {
-  await web3Enable('subscaffold dapp')
+  await web3Enable(import.meta.env.VITE_DAPP_NAME as string)
   walletStore.setWallets(await web3Accounts())
 })
 // Modals logic

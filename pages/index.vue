@@ -2,16 +2,18 @@
   <div>
     <h1>Welcome to home page, count:{{ store.count }}</h1>
     <n-space vertical>
-      <TestComponent
-        v-for="val in [undefined, 2, 3]"
-        :key="`k-${val}`"
-        :by="val"
-      />
-      <n-button @click.stop="store.apiCall()">Test API</n-button>
-      <AssetComponent />
-      <AddressComponent />
-      <LayoutSelect />
-      <PalletComponent />
+      <client-only>
+        <TestComponent
+          v-for="val in [undefined, 2, 3]"
+          :key="`k-${val}`"
+          :by="val"
+        />
+        <n-button @click.stop="store.apiCall()">Test API</n-button>
+        <AssetComponent />
+        <AddressComponent />
+        <LayoutSelect />
+        <PalletComponent />
+      </client-only>
       <span class="filler" />
     </n-space>
   </div>

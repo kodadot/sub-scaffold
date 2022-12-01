@@ -1,7 +1,7 @@
 <template>
   <n-space>
     <n-card title="Pallet form">
-      Connection state: {{ connectionState }}
+      Connection state: {{ substrateStore.apiState }}
     </n-card>
   </n-space>
 </template>
@@ -10,9 +10,8 @@ import { useSubstrateStore } from '@/store/substrate'
 import { NCard, NSpace } from 'naive-ui'
 
 const substrateStore = useSubstrateStore()
+
 onMounted(() => {
   substrateStore.connect()
 })
-
-const connectionState = computed(() => substrateStore.apiState)
 </script>
