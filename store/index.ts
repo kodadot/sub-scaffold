@@ -5,8 +5,7 @@ type State = {
   urlPrefix?: Prefix
 }
 
-export const useMainStore = defineStore({
-  id: 'main',
+export const useMainStore = defineStore('index', {
   state: (): State => ({}),
   actions: {},
   getters: {

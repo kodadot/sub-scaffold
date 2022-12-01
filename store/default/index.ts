@@ -1,13 +1,8 @@
 import { apiFetch } from '@/utils/omf'
-import { defineStore } from 'pinia'
-import Consola, { FancyReporter } from 'consola'
 import { FetchError } from 'ohmyfetch'
+import { defineStore } from 'pinia'
 
-const logger = Consola.create({
-  defaults: {
-    tag: 'store::default:',
-  },
-})
+const logger = createLogger('store::default')
 
 export const useDefaultStore = defineStore('default', {
   state: () => ({

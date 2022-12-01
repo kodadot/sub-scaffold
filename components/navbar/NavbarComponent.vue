@@ -5,25 +5,23 @@
       mode="horizontal"
       :options="menuOptions"
     />
-    <client-only>
-      <WalletComponent />
-      <template #fallback>
-        <n-button style="margin: 10px" disabled> Loading wallets... </n-button>
-      </template>
-    </client-only>
+    <WalletComponent />
+    <template #fallback>
+      <n-button style="margin: 10px" disabled> Loading wallets... </n-button>
+    </template>
   </n-space>
 </template>
 
 <script lang="ts" setup>
-import { h, ref, Component } from 'vue'
-import { NIcon, NMenu, NSpace, NButton } from 'naive-ui'
-import type { MenuOption } from 'naive-ui'
+import WalletComponent from '@/components/wallet/WalletComponent.vue'
 import {
   BookFilled as BookIcon,
-  PersonAddAlt1Filled as PersonIcon,
   HomeFilled as HomeIcon,
+  PersonAddAlt1Filled as PersonIcon,
 } from '@vicons/material'
-import WalletComponent from '@/components/wallet/WalletComponent.vue'
+import type { MenuOption } from 'naive-ui'
+import { NButton, NIcon, NMenu, NSpace } from 'naive-ui'
+import { Component, h, ref } from 'vue'
 
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) })

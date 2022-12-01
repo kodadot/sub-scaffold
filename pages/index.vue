@@ -11,6 +11,7 @@
       <AssetComponent />
       <AddressComponent />
       <LayoutSelect />
+      <PalletComponent />
       <span class="filler" />
     </n-space>
   </div>
@@ -19,6 +20,7 @@
 <script setup lang="ts">
 import AddressComponent from '@/components/assets/AddressComponent.vue'
 import AssetComponent from '@/components/assets/AssetComponent.vue'
+import PalletComponent from '@/components/pallet/PalletComponent.vue'
 import TestComponent from '@/components/TestComponent.vue'
 import LayoutSelect from '@/components/utils/LayoutSelect.vue'
 import { useDefaultStore } from '@/store/default'

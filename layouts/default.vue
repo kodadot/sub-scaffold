@@ -12,11 +12,5 @@
   </n-layout>
 </template>
 <script setup lang="ts">
-import {
-  NLayout,
-  NLayoutContent,
-  NLayoutFooter,
-  NLayoutHeader,
-  NSpace,
-} from 'naive-ui'
+import { NLayout, NLayoutContent, NLayoutFooter, NSpace } from 'naive-ui'
 </script>

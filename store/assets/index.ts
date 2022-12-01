@@ -1,19 +1,13 @@
 import { Currency } from '@/types/currency'
 import { defineStore } from 'pinia'
-import Consola from 'consola'
 
-const logger = Consola.create({
-  defaults: {
-    tag: 'store::assets:',
-  },
-})
+const logger = createLogger('store::assets')
 
 type State = {
   currencies: Currency[]
 }
 
-export const useAssetsStore = defineStore({
-  id: 'assets',
+export const useAssetsStore = defineStore('assets', {
   state: (): State => ({
     currencies: [],
   }),
