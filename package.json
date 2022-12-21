@@ -29,6 +29,7 @@
   "dependencies": {
     "@css-render/vue3-ssr": "^0.15.11",
     "@kodadot1/sub-api": "0.1.1-alpha.3",
+    "@paraspell/sdk": "^0.0.16",
     "@pinia/nuxt": "^0.4.3",
     "@polkadot/api": "^9.6.2",
     "@polkadot/extension-dapp": "^0.44.6",
