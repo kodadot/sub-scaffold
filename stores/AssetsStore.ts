@@ -94,11 +94,22 @@ export const useAssetsStore = defineStore({
      * @param balance Amount of tokens
      * @param currencyId Token ID
      */
-    async send(balance: number, selectedAsset: TAssetDetails, forMe: boolean) {
+    async send(
+      balance: number,
+      selectedAsset: TAssetDetails,
+      forMe: boolean,
+      source: string,
+      destination: string
+    ) {
       //TODO: send transaction
       //TODO: Currentlty not implemented on paraspell side
-      const decimals = 10
-      logger.success('send', balance * 10 ** decimals, selectedAsset, forMe)
+      const decimals = 12
+      logger.success(
+        `send ${source} => ${destination}`,
+        balance * 10 ** decimals,
+        selectedAsset,
+        forMe
+      )
     },
   },
   getters: {

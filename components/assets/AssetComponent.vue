@@ -132,7 +132,9 @@ const onSend = () => {
       assetId,
       symbol,
     },
-    forMe.value
+    forMe.value,
+    selectedNode.value!,
+    selectedDestination.value!
   )
 }
 </script>
