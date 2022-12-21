@@ -27,9 +27,8 @@
   </n-modal>
 </template>
 <script setup lang="ts">
-import { useWalletStore } from '@/store/wallet'
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp'
-import { NButton, NModal, NSpace, NCard } from 'naive-ui'
+import { NButton, NCard, NModal, NSpace } from 'naive-ui'
 
 const walletStore = useWalletStore()
 

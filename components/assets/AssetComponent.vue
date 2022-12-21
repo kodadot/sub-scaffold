@@ -36,17 +36,16 @@
   </NSpace>
 </template>
 <script lang="ts" setup>
-import { useAssetsStore } from '@/store/assets'
-import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material'
+import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material';
 import {
-  NButton,
-  NIcon,
-  NInputNumber,
-  NSelect,
-  NSpace,
-  NSwitch,
-  type SelectOption,
-} from 'naive-ui'
+NButton,
+NIcon,
+NInputNumber,
+NSelect,
+NSpace,
+NSwitch,
+type SelectOption
+} from 'naive-ui';
 
 const assetsStore = useAssetsStore()
 

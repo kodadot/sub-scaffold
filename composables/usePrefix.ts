@@ -1,5 +1,4 @@
 import { computed } from 'vue'
-import { useMainStore } from '~~/store'
 export default function () {
   const store = useMainStore()
 

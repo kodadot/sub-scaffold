@@ -10,7 +10,17 @@ export default defineNuxtConfig({
       API_BASE_URL: process.env.API_BASE_URL,
     },
   },
-  modules: ['@pinia/nuxt'],
+  modules: [
+    [
+      '@pinia/nuxt',
+      {
+        autoImports: ['defineStore', 'acceptHMRUpdate'],
+      },
+    ],
+  ],
+  imports: {
+    dirs: ['stores'],
+  },
   build: {
     transpile:
       process.env.NODE_ENV === 'production'

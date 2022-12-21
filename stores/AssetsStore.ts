@@ -1,5 +1,4 @@
 import { Currency } from '@/types/currency'
-import { defineStore } from 'pinia'
 import Consola from 'consola'
 
 const logger = Consola.create({
@@ -42,3 +41,7 @@ export const useAssetsStore = defineStore({
     },
   },
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useAssetsStore, import.meta.hot))
+}

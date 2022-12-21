@@ -21,7 +21,6 @@ import AddressComponent from '@/components/assets/AddressComponent.vue'
 import AssetComponent from '@/components/assets/AssetComponent.vue'
 import TestComponent from '@/components/TestComponent.vue'
 import LayoutSelect from '@/components/utils/LayoutSelect.vue'
-import { useDefaultStore } from '@/store/default'
 import { NButton, NSpace } from 'naive-ui'
 
 const store = useDefaultStore()

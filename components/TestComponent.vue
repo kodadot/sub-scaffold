@@ -11,10 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import { useDefaultStore } from '@/store/default'
-
-import { NButton } from 'naive-ui'
 import { AddBoxFilled } from '@vicons/material'
+import { NButton } from 'naive-ui'
 defineProps<{
   by?: number
 }>()

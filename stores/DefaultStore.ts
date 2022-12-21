@@ -1,6 +1,5 @@
 import { apiFetch } from '@/utils/omf'
-import { defineStore } from 'pinia'
-import Consola, { FancyReporter } from 'consola'
+import Consola from 'consola'
 import { FetchError } from 'ohmyfetch'
 
 const logger = Consola.create({
@@ -29,3 +28,7 @@ export const useDefaultStore = defineStore('default', {
     },
   },
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useDefaultStore, import.meta.hot))
+}
