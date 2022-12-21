@@ -19,18 +19,30 @@
         :options="nodeOptions"
         class="node-select"
         placeholder="Select node"
+        filterable
         clearable
         @update:value="assetsStore.selectNode(selectedNode as TNode)"
         @clear="clearNode"
       />
     </NSpace>
+    <NSelect
+      v-model:value="selectedAsset"
+      :options="assetOptions"
+      class="asset-select"
+      placeholder="Select asset"
+      :disabled="!selectedNode"
+      filterable
+      clearable
+      @clear="clearAsset"
+    />
     <NSpace>
       <NSelect
-        v-model:value="selectedAsset"
-        :options="assetOptions"
-        class="asset-select"
-        placeholder="Select asset"
-        :disabled="!selectedNode"
+        v-model:value="selectedDestination"
+        :options="destinationOptions"
+        class="destination-select"
+        placeholder="Select destination"
+        :disabled="!selectedAsset"
+        filterable
         clearable
         @clear="balance = 0"
       />
@@ -40,7 +52,7 @@
         step="0.001"
         min="0"
         :precision="3"
-        :disabled="!selectedAsset"
+        :disabled="!selectedDestination"
       />
       <NButton type="primary" :disabled="!canSend" @click="onSend">
         Send
@@ -61,25 +73,45 @@ import {
 } from 'naive-ui'
 
 import type { TNode } from '@/stores/assetsStore'
-
 const assetsStore = useAssetsStore()
+
+// Node logic
 //TODO: Implement node options from paraspell
 const nodeOptions = computed(() => assetsStore.nodeOptions)
 const selectedNode = ref<TNode | null>(null)
 
+// Asset logic
 const assetOptions = computed<SelectOption[]>(() =>
   //TODO: Not sure how to represent value as string, for now concat assetId and symbol with '-'
-  assetsStore.assetOptions(selectedNode.value as TNode).map((asset) => ({
+  assetsStore.assetOptions.map((asset) => ({
     label: asset.symbol,
     value: asset.assetId + '-' + asset.symbol,
   }))
 )
 const selectedAsset = ref<string | null>(null)
 
+// Destination logic
+const destinationOptions = computed(() => {
+  if (!selectedAsset.value || !selectedNode.value) {
+    return []
+  }
+  return assetsStore.destinationOptions(
+    selectedAsset.value.split('-')[1],
+    selectedNode.value
+  )
+})
+const selectedDestination = ref<TNode | null>(null)
+
 const clearNode = () => {
   selectedAsset.value = null
+  selectedDestination.value = null
   balance.value = 0
   assetsStore.selectNode(null)
+}
+
+const clearAsset = () => {
+  selectedDestination.value = null
+  balance.value = 0
 }
 
 // For me logic
@@ -93,22 +125,21 @@ const canSend = computed(
   () => selectedNode.value && selectedAsset.value && balance.value > 0
 )
 const onSend = () => {
-  const splitted = selectedAsset.value!.split('-')
+  const [assetId, symbol] = selectedAsset.value!.split('-')
   assetsStore.send(
     balance.value,
     {
-      assetId: splitted[0],
-      symbol: splitted[1],
+      assetId,
+      symbol,
     },
     forMe.value
   )
 }
 </script>
 <style lang="scss">
-.node-select {
-  width: 200px;
-}
-.asset-select {
+.node-select,
+.asset-select,
+.destination-select {
   width: 200px;
 }
 </style>
