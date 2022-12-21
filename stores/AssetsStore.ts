@@ -81,7 +81,11 @@ export const useAssetsStore = defineStore({
      * Select node to show assets
      * @param node
      */
-    selectNode(node: TNode) {
+    selectNode(node: TNode | null) {
+      if (!node) {
+        this.assets = null
+        return
+      }
       const { $paraspell } = useNuxtApp()
       this.assets = $paraspell.assets.getAssetsObject(node)
     },
@@ -98,19 +102,31 @@ export const useAssetsStore = defineStore({
     },
   },
   getters: {
-    nodeOptions() {
+    nodeOptions: (state) => {
       return NODE_NAMES.map((name) => ({ value: name, label: name }))
     },
-    assetOptions(): TAssetDetails[] {
-      if (!this.assets) return []
-      return [
-        ...this.assets.nativeAssets.reduce((acc, value) => {
-          acc.push({ assetId: 'native', symbol: value })
-          return acc
-        }, [] as TAssetDetails[]),
-        ...this.assets.otherAssets,
-      ]
-    },
+    assetOptions:
+      (state) =>
+      (node: TNode): TAssetDetails[] => {
+        const { $paraspell } = useNuxtApp()
+        // check if assets are loaded
+        if (!state.assets) return []
+        return [
+          ...state.assets.nativeAssets
+            .filter(
+              // Filter out only usable native assets
+              (asset) => $paraspell.assets.hasSupportForAsset(node, asset)
+            )
+            .reduce((acc, value) => {
+              acc.push({ assetId: 'native', symbol: value })
+              return acc
+            }, [] as TAssetDetails[]),
+          ...state.assets.otherAssets.filter(
+            // Filter out only usable other assets
+            (asset) => $paraspell.assets.hasSupportForAsset(node, asset.symbol)
+          ),
+        ]
+      },
   },
 })
 

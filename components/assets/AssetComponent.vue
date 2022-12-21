@@ -19,7 +19,9 @@
         :options="nodeOptions"
         class="node-select"
         placeholder="Select node"
+        clearable
         @update:value="assetsStore.selectNode(selectedNode as TNode)"
+        @clear="clearNode"
       />
     </NSpace>
     <NSpace>
@@ -29,6 +31,8 @@
         class="asset-select"
         placeholder="Select asset"
         :disabled="!selectedNode"
+        clearable
+        @clear="balance = 0"
       />
       <NInputNumber
         v-model:value="balance"
@@ -61,16 +65,22 @@ import type { TNode } from '@/stores/assetsStore'
 const assetsStore = useAssetsStore()
 //TODO: Implement node options from paraspell
 const nodeOptions = computed(() => assetsStore.nodeOptions)
-const selectedNode = ref<string | null>(null)
+const selectedNode = ref<TNode | null>(null)
 
 const assetOptions = computed<SelectOption[]>(() =>
   //TODO: Not sure how to represent value as string, for now concat assetId and symbol with '-'
-  assetsStore.assetOptions.map((asset) => ({
+  assetsStore.assetOptions(selectedNode.value as TNode).map((asset) => ({
     label: asset.symbol,
     value: asset.assetId + '-' + asset.symbol,
   }))
 )
 const selectedAsset = ref<string | null>(null)
+
+const clearNode = () => {
+  selectedAsset.value = null
+  balance.value = 0
+  assetsStore.selectNode(null)
+}
 
 // For me logic
 const forMe = ref(false)
@@ -78,6 +88,7 @@ const forMe = ref(false)
 // Balance logic
 const balance = ref(0)
 
+// Send logic
 const canSend = computed(
   () => selectedNode.value && selectedAsset.value && balance.value > 0
 )
