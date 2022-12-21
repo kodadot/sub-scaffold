@@ -61,6 +61,7 @@
   </NSpace>
 </template>
 <script lang="ts" setup>
+import { TNode } from '@paraspell/sdk'
 import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material'
 import {
   NButton,
@@ -72,20 +73,17 @@ import {
   type SelectOption,
 } from 'naive-ui'
 
-import type { TNode } from '@/stores/assetsStore'
 const assetsStore = useAssetsStore()
 
 // Node logic
-//TODO: Implement node options from paraspell
 const nodeOptions = computed(() => assetsStore.nodeOptions)
 const selectedNode = ref<TNode | null>(null)
 
 // Asset logic
 const assetOptions = computed<SelectOption[]>(() =>
-  //TODO: Not sure how to represent value as string, for now concat assetId and symbol with '-'
   assetsStore.assetOptions.map((asset) => ({
     label: asset.symbol,
-    value: asset.assetId + '-' + asset.symbol,
+    value: asset.assetId + '-' + asset.symbol, // Neive UI doesn't support objects as options
   }))
 )
 const selectedAsset = ref<string | null>(null)

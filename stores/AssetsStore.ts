@@ -1,4 +1,4 @@
-import { SubmittableExtrinsic } from '@polkadot/api/types'
+import { NODE_NAMES, TAssetDetails, TNode, TNodeAssets } from '@paraspell/sdk'
 import Consola from 'consola'
 
 const logger = Consola.create({
@@ -6,66 +6,6 @@ const logger = Consola.create({
     tag: 'store::assets:',
   },
 })
-
-/// TODO: Import from paraspell in later release!!!
-export const NODE_NAMES = [
-  'Statemint',
-  'Acala',
-  'Astar',
-  'BifrostPolkadot',
-  'Bitgreen',
-  'Centrifuge',
-  'Clover',
-  'ComposableFinance',
-  'Darwinia',
-  'HydraDX',
-  'Interlay',
-  'Kylin',
-  'Litentry',
-  'Moonbeam',
-  'Parallel',
-  'Statemine',
-  'Encointer',
-  'Altair',
-  'Amplitude',
-  'Bajun',
-  'Basilisk',
-  'BifrostKusama',
-  'Pioneer',
-  'Calamari',
-  'CrustShadow',
-  'Crab',
-  'Dorafactory',
-  'Imbue',
-  'Integritee',
-  'InvArchTinker',
-  'Karura',
-  'Kico',
-  'Kintsugi',
-  'Listen',
-  'Litmus',
-  'Mangata',
-  'Moonriver',
-  'ParallelHeiko',
-  'Picasso',
-  'Pichiu',
-  'Quartz',
-  'Robonomics',
-  'Shiden',
-  'Turing',
-] as const
-
-export type Extrinsic = SubmittableExtrinsic<'promise'>
-export type TNode = typeof NODE_NAMES[number]
-export type TAssetDetails = {
-  assetId: string
-  symbol: string
-}
-export type TNodeAssets = {
-  relayChainAssetSymbol: 'KSM' | 'DOT'
-  nativeAssets: string[]
-  otherAssets: TAssetDetails[]
-}
 
 type State = {
   assets: TNodeAssets | null
@@ -101,8 +41,7 @@ export const useAssetsStore = defineStore({
       source: string,
       destination: string
     ) {
-      //TODO: send transaction
-      //TODO: Currentlty not implemented on paraspell side
+      //TODO: Decimals currentlty not implemented on paraspell side
       const decimals = 12
       logger.success(
         `send ${source} => ${destination}`,
