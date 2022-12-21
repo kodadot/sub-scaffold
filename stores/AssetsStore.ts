@@ -1,4 +1,4 @@
-import { Currency } from '@/types/currency'
+import { SubmittableExtrinsic } from '@polkadot/api/types'
 import Consola from 'consola'
 
 const logger = Consola.create({
@@ -7,37 +7,109 @@ const logger = Consola.create({
   },
 })
 
+/// TODO: Import from paraspell in later release!!!
+export const NODE_NAMES = [
+  'Statemint',
+  'Acala',
+  'Astar',
+  'BifrostPolkadot',
+  'Bitgreen',
+  'Centrifuge',
+  'Clover',
+  'ComposableFinance',
+  'Darwinia',
+  'HydraDX',
+  'Interlay',
+  'Kylin',
+  'Litentry',
+  'Moonbeam',
+  'Parallel',
+  'Statemine',
+  'Encointer',
+  'Altair',
+  'Amplitude',
+  'Bajun',
+  'Basilisk',
+  'BifrostKusama',
+  'Pioneer',
+  'Calamari',
+  'CrustShadow',
+  'Crab',
+  'Dorafactory',
+  'Imbue',
+  'Integritee',
+  'InvArchTinker',
+  'Karura',
+  'Kico',
+  'Kintsugi',
+  'Listen',
+  'Litmus',
+  'Mangata',
+  'Moonriver',
+  'ParallelHeiko',
+  'Picasso',
+  'Pichiu',
+  'Quartz',
+  'Robonomics',
+  'Shiden',
+  'Turing',
+] as const
+
+export type Extrinsic = SubmittableExtrinsic<'promise'>
+export type TNode = typeof NODE_NAMES[number]
+export type TAssetDetails = {
+  assetId: string
+  symbol: string
+}
+export type TNodeAssets = {
+  relayChainAssetSymbol: 'KSM' | 'DOT'
+  nativeAssets: string[]
+  otherAssets: TAssetDetails[]
+}
+
 type State = {
-  currencies: Currency[]
+  assets: TNodeAssets | null
 }
 
 export const useAssetsStore = defineStore({
   id: 'assets',
   state: (): State => ({
-    currencies: [],
+    assets: null,
   }),
   actions: {
     /**
-     * Fetches the list of currencies from the API
+     * Select node to show assets
+     * @param node
      */
-    async fetchCurrencies() {
-      //TODO: fetch currencies from API
-      this.currencies = [
-        { id: 'dot', name: 'DOT', decimals: 10 },
-        { id: 'ksm', name: 'KSM', decimals: 12 },
-        { id: 'bsx', name: 'BSX', decimals: 14 },
-      ]
+    selectNode(node: TNode) {
+      const { $paraspell } = useNuxtApp()
+      this.assets = $paraspell.assets.getAssetsObject(node)
     },
     /**
      * Send a transaction
      * @param balance Amount of tokens
      * @param currencyId Token ID
      */
-    async send(balance: number, currencyId: string, forMe: boolean) {
+    async send(balance: number, selectedAsset: TAssetDetails, forMe: boolean) {
       //TODO: send transaction
-      const decimals =
-        this.currencies.find((c) => c.id === currencyId)?.decimals ?? 1
-      logger.success('send', balance * 10 ** decimals, currencyId, forMe)
+      //TODO: Currentlty not implemented on paraspell side
+      const decimals = 10
+      logger.success('send', balance * 10 ** decimals, selectedAsset, forMe)
+    },
+  },
+  getters: {
+    nodeOptions() {
+      return NODE_NAMES.map((name) => ({ value: name, label: name }))
+    },
+    assetOptions(): TAssetDetails[] {
+      if (!this.assets) return []
+      return [
+        ...this.assets.nativeAssets.reduce((acc, value) => {
+          acc.push({ assetId: 'native', symbol: value })
+          return acc
+        }, [] as TAssetDetails[]),
+        ...this.assets.otherAssets,
+      ]
     },
   },
 })
