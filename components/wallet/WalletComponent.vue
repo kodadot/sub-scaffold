@@ -21,6 +21,12 @@
         >
           {{ wallet.meta.source }} ({{ wallet.meta.name }})
         </n-button>
+        <n-button
+          v-if="walletStore.selected"
+          style="width: 100%"
+          @click="disconnectWallet"
+          >Disconnect wallet</n-button
+        >
         <n-button style="width: 100%" @click="cancelModal">Cancel</n-button>
       </n-space>
     </n-card>
@@ -52,6 +58,11 @@ const wallets = computed(() => walletStore.wallets)
 
 const selectWallet = (address: string) => {
   walletStore.selectWallet(address)
+  cancelModal()
+}
+
+const disconnectWallet = () => {
+  walletStore.disconnectWallet()
   cancelModal()
 }
 

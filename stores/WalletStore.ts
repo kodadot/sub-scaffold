@@ -21,8 +21,14 @@ export const useWalletStore = defineStore({
     /**
      * Fetches the list of wallets from the API
      */
-    async setWallets(wallets: InjectedAccountWithMeta[]) {
+    setWallets(wallets: InjectedAccountWithMeta[]) {
       this.wallets = wallets
+    },
+    /**
+     * Disconnect current wallet
+     */
+    disconnectWallet() {
+      this.selected = null
     },
     /**
      * Set current wallet
