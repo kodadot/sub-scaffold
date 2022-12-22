@@ -21,15 +21,20 @@
         >
           {{ wallet.meta.source }} ({{ wallet.meta.name }})
         </n-button>
+        <n-button
+          v-if="walletStore.selected"
+          style="width: 100%"
+          @click="disconnectWallet"
+          >Disconnect wallet</n-button
+        >
         <n-button style="width: 100%" @click="cancelModal">Cancel</n-button>
       </n-space>
     </n-card>
   </n-modal>
 </template>
 <script setup lang="ts">
-import { useWalletStore } from '@/store/wallet'
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp'
-import { NButton, NModal, NSpace, NCard } from 'naive-ui'
+import { NButton, NCard, NModal, NSpace } from 'naive-ui'
 
 const walletStore = useWalletStore()
 
@@ -53,6 +58,11 @@ const wallets = computed(() => walletStore.wallets)
 
 const selectWallet = (address: string) => {
   walletStore.selectWallet(address)
+  cancelModal()
+}
+
+const disconnectWallet = () => {
+  walletStore.disconnectWallet()
   cancelModal()
 }
 

@@ -1,35 +1,19 @@
 <template>
   <div>
-    <h1>Welcome to home page, count:{{ store.count }}</h1>
+    <h1>Welcome to home page!</h1>
     <n-space vertical>
-      <TestComponent
-        v-for="val in [undefined, 2, 3]"
-        :key="`k-${val}`"
-        :by="val"
-      />
-      <n-button @click.stop="store.apiCall()">Test API</n-button>
-      <AssetComponent />
-      <AddressComponent />
-      <LayoutSelect />
       <span class="filler" />
     </n-space>
   </div>
 </template>
 
 <script setup lang="ts">
-import AddressComponent from '@/components/assets/AddressComponent.vue'
-import AssetComponent from '@/components/assets/AssetComponent.vue'
-import TestComponent from '@/components/TestComponent.vue'
-import LayoutSelect from '@/components/utils/LayoutSelect.vue'
-import { useDefaultStore } from '@/store/default'
-import { NButton, NSpace } from 'naive-ui'
-
-const store = useDefaultStore()
+import { NSpace } from 'naive-ui'
 </script>
 
 <style scoped lang="scss">
 .filler {
-  min-height: 20vh;
+  min-height: 80vh;
   display: block;
 }
 </style>

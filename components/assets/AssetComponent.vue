@@ -1,8 +1,8 @@
 <template>
-  <NSpace vertical>
-    <NSpace>
+  <n-space vertical>
+    <n-space>
       Send to:
-      <NSwitch v-model:value="forMe">
+      <n-switch v-model:value="forMe">
         <template #unchecked>Address</template>
         <template #unchecked-icon>
           <n-icon :component="ArrowForwardOutlined" />
@@ -11,73 +11,135 @@
         <template #checked-icon>
           <n-icon :component="ArrowBackOutlined" />
         </template>
-      </NSwitch>
-    </NSpace>
-
-    <NSpace>
-      <NSelect
-        v-model:value="selectedCurrency"
-        :options="options"
-        class="currency-select"
-        placeholder="Select currency"
+      </n-switch>
+    </n-space>
+    <n-space>
+      <n-select
+        v-model:value="selectedNode"
+        :options="nodeOptions"
+        class="node-select"
+        placeholder="Select node"
+        filterable
+        clearable
+        @update:value="assetsStore.selectNode(selectedNode as TNode)"
+        @clear="clearNode"
       />
-      <NInputNumber
+    </n-space>
+    <n-select
+      v-model:value="selectedAsset"
+      :options="assetOptions"
+      class="asset-select"
+      placeholder="Select asset"
+      :disabled="!selectedNode"
+      filterable
+      clearable
+      @clear="clearAsset"
+    />
+    <n-space>
+      <n-select
+        v-model:value="selectedDestination"
+        :options="destinationOptions"
+        class="destination-select"
+        placeholder="Select destination"
+        :disabled="!selectedAsset"
+        filterable
+        clearable
+        @clear="balance = 0"
+      />
+      <n-input-number
         v-model:value="balance"
         placeholder="Balance"
         step="0.001"
         min="0"
         :precision="3"
-        :disabled="!selectedCurrency"
+        :disabled="!selectedDestination"
       />
-      <NButton type="primary" :disabled="!canSend" @click="onSend">
+      <n-button type="primary" :disabled="!canSend" @click="onSend">
         Send
-      </NButton>
-    </NSpace>
-  </NSpace>
+      </n-button>
+    </n-space>
+  </n-space>
 </template>
 <script lang="ts" setup>
-import { useAssetsStore } from '@/store/assets'
-import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material'
+import { TNode } from '@paraspell/sdk';
+import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material';
 import {
-  NButton,
-  NIcon,
-  NInputNumber,
-  NSelect,
-  NSpace,
-  NSwitch,
-  type SelectOption,
-} from 'naive-ui'
+NButton,
+NIcon,
+NInputNumber,
+NSelect,
+NSpace,
+NSwitch,
+type SelectOption
+} from 'naive-ui';
 
 const assetsStore = useAssetsStore()
 
-// Load currencies
-const selectedCurrency = ref<string>()
-onMounted(async () => {
-  await assetsStore.fetchCurrencies()
-  selectedCurrency.value = assetsStore.currencies[0]?.id
-})
+// Node logic
+const nodeOptions = computed(() => assetsStore.nodeOptions)
+const selectedNode = ref<TNode | null>(null)
 
-const options = computed(() =>
-  assetsStore.currencies.map<SelectOption>((x) => ({
-    label: x.name,
-    value: x.id,
+// Asset logic
+const assetOptions = computed<SelectOption[]>(() =>
+  assetsStore.assetOptions.map((asset) => ({
+    label: asset.symbol,
+    value: asset.assetId + '-' + asset.symbol, // Neive UI doesn't support objects as options
   }))
 )
+const selectedAsset = ref<string | null>(null)
+
+// Destination logic
+const destinationOptions = computed(() => {
+  if (!selectedAsset.value || !selectedNode.value) {
+    return []
+  }
+  return assetsStore.destinationOptions(
+    selectedAsset.value.split('-')[1],
+    selectedNode.value
+  )
+})
+const selectedDestination = ref<TNode | null>(null)
+
+const clearNode = () => {
+  selectedAsset.value = null
+  selectedDestination.value = null
+  balance.value = 0
+  assetsStore.selectNode(null)
+}
+
+const clearAsset = () => {
+  selectedDestination.value = null
+  balance.value = 0
+}
+
 // For me logic
 const forMe = ref(false)
 
 // Balance logic
 const balance = ref(0)
 
-const canSend = computed(() => balance.value > 0 && selectedCurrency.value)
+// Send logic
+const canSend = computed(
+  () => selectedNode.value && selectedAsset.value && balance.value > 0
+)
 const onSend = () => {
-  if (selectedCurrency.value) {
-    assetsStore.send(balance.value, selectedCurrency.value, forMe.value)
-  }
+  const [assetId, symbol] = selectedAsset.value!.split('-')
+  assetsStore.send(
+    balance.value,
+    {
+      assetId,
+      symbol,
+    },
+    forMe.value,
+    selectedNode.value!,
+    selectedDestination.value!
+  )
 }
 </script>
 <style lang="scss">
-.currency-select {
-  width: 100px;
+.node-select,
+.asset-select,
+.destination-select {
+  width: 200px;
 }
 </style>

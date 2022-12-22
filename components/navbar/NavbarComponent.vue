@@ -6,7 +6,8 @@
       :options="menuOptions"
     />
     <client-only>
-      <WalletComponent />
+      <layout-select />
+      <wallet-component />
       <template #fallback>
         <n-button style="margin: 10px" disabled> Loading wallets... </n-button>
       </template>
@@ -15,15 +16,16 @@
 </template>
 
 <script lang="ts" setup>
-import { h, ref, Component } from 'vue'
-import { NIcon, NMenu, NSpace, NButton } from 'naive-ui'
-import type { MenuOption } from 'naive-ui'
+import LayoutSelect from '@/components/utils/LayoutSelect.vue'
+import WalletComponent from '@/components/wallet/WalletComponent.vue'
 import {
+  AutoFixNormalFilled as MagicIcon,
   BookFilled as BookIcon,
-  PersonAddAlt1Filled as PersonIcon,
   HomeFilled as HomeIcon,
 } from '@vicons/material'
-import WalletComponent from '@/components/wallet/WalletComponent.vue'
+import type { MenuOption } from 'naive-ui'
+import { NButton, NIcon, NMenu, NSpace } from 'naive-ui'
+import { Component, h, ref } from 'vue'
 
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) })
@@ -37,9 +39,9 @@ const menuOptions: MenuOption[] = [
         {
           href: '/',
         },
-        { default: () => 'Going Home' }
+        { default: () => 'Home' }
       ),
-    key: 'go-back-home',
+    key: 'home',
     icon: renderIcon(HomeIcon),
   },
   {
@@ -47,12 +49,12 @@ const menuOptions: MenuOption[] = [
       h(
         'a',
         {
-          href: '/about',
+          href: '/paraspell',
         },
-        { default: () => 'About' }
+        { default: () => 'Paraspell' }
       ),
-    key: 'about',
-    icon: renderIcon(PersonIcon),
+    key: 'paraspell',
+    icon: renderIcon(MagicIcon),
   },
   {
     label: () =>
@@ -65,7 +67,7 @@ const menuOptions: MenuOption[] = [
         },
         'Github '
       ),
-    key: 'hear-the-wind-sing',
+    key: 'github',
     icon: renderIcon(BookIcon),
   },
 ]

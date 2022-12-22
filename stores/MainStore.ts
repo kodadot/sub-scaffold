@@ -1,5 +1,4 @@
-import { defineStore } from 'pinia'
-import { Prefix } from '~~/types/config'
+import { Prefix } from '@/types/config'
 
 type State = {
   urlPrefix?: Prefix
@@ -16,3 +15,7 @@ export const useMainStore = defineStore({
     },
   },
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useMainStore, import.meta.hot))
+}
