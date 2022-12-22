@@ -1,8 +1,8 @@
 <template>
-  <NSpace vertical>
-    <NSpace>
+  <n-space vertical>
+    <n-space>
       Send to:
-      <NSwitch v-model:value="forMe">
+      <n-switch v-model:value="forMe">
         <template #unchecked>Address</template>
         <template #unchecked-icon>
           <n-icon :component="ArrowForwardOutlined" />
@@ -11,10 +11,10 @@
         <template #checked-icon>
           <n-icon :component="ArrowBackOutlined" />
         </template>
-      </NSwitch>
-    </NSpace>
-    <NSpace>
-      <NSelect
+      </n-switch>
+    </n-space>
+    <n-space>
+      <n-select
         v-model:value="selectedNode"
         :options="nodeOptions"
         class="node-select"
@@ -24,8 +24,8 @@
         @update:value="assetsStore.selectNode(selectedNode as TNode)"
         @clear="clearNode"
       />
-    </NSpace>
-    <NSelect
+    </n-space>
+    <n-select
       v-model:value="selectedAsset"
       :options="assetOptions"
       class="asset-select"
@@ -35,8 +35,8 @@
       clearable
       @clear="clearAsset"
     />
-    <NSpace>
-      <NSelect
+    <n-space>
+      <n-select
         v-model:value="selectedDestination"
         :options="destinationOptions"
         class="destination-select"
@@ -46,7 +46,7 @@
         clearable
         @clear="balance = 0"
       />
-      <NInputNumber
+      <n-input-number
         v-model:value="balance"
         placeholder="Balance"
         step="0.001"
@@ -54,24 +54,24 @@
         :precision="3"
         :disabled="!selectedDestination"
       />
-      <NButton type="primary" :disabled="!canSend" @click="onSend">
+      <n-button type="primary" :disabled="!canSend" @click="onSend">
         Send
-      </NButton>
-    </NSpace>
-  </NSpace>
+      </n-button>
+    </n-space>
+  </n-space>
 </template>
 <script lang="ts" setup>
-import { TNode } from '@paraspell/sdk'
-import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material'
+import { TNode } from '@paraspell/sdk';
+import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material';
 import {
-  NButton,
-  NIcon,
-  NInputNumber,
-  NSelect,
-  NSpace,
-  NSwitch,
-  type SelectOption,
-} from 'naive-ui'
+NButton,
+NIcon,
+NInputNumber,
+NSelect,
+NSpace,
+NSwitch,
+type SelectOption
+} from 'naive-ui';
 
 const assetsStore = useAssetsStore()
 

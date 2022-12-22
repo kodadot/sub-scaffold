@@ -1,19 +1,19 @@
 <template>
-  <NSpace>
-    <NFormItem
+  <n-space>
+    <n-form-item
       label="Address test:"
       :validation-status="getValidationStatus(error)"
       :feedback="error ? error : undefined"
     >
-      <NInput
+      <n-input
         v-model:value="address"
         placeholder="Address"
         @change="handleInput"
         autosize
         style="min-width: 300px"
       />
-    </NFormItem>
-  </NSpace>
+    </n-form-item>
+  </n-space>
 </template>
 <script lang="ts" setup>
 import { checkAddress, isAddress } from '@polkadot/util-crypto'

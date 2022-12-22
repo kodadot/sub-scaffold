@@ -6,8 +6,8 @@
       :options="menuOptions"
     />
     <client-only>
-      <LayoutSelect />
-      <WalletComponent />
+      <layout-select />
+      <wallet-component />
       <template #fallback>
         <n-button style="margin: 10px" disabled> Loading wallets... </n-button>
       </template>
@@ -19,9 +19,9 @@
 import LayoutSelect from '@/components/utils/LayoutSelect.vue'
 import WalletComponent from '@/components/wallet/WalletComponent.vue'
 import {
+  AutoFixNormalFilled as MagicIcon,
   BookFilled as BookIcon,
   HomeFilled as HomeIcon,
-  PersonAddAlt1Filled as PersonIcon,
 } from '@vicons/material'
 import type { MenuOption } from 'naive-ui'
 import { NButton, NIcon, NMenu, NSpace } from 'naive-ui'
@@ -39,9 +39,9 @@ const menuOptions: MenuOption[] = [
         {
           href: '/',
         },
-        { default: () => 'Going Home' }
+        { default: () => 'Home' }
       ),
-    key: 'go-back-home',
+    key: 'home',
     icon: renderIcon(HomeIcon),
   },
   {
@@ -49,12 +49,12 @@ const menuOptions: MenuOption[] = [
       h(
         'a',
         {
-          href: '/about',
+          href: '/paraspell',
         },
-        { default: () => 'About' }
+        { default: () => 'Paraspell' }
       ),
-    key: 'about',
-    icon: renderIcon(PersonIcon),
+    key: 'paraspell',
+    icon: renderIcon(MagicIcon),
   },
   {
     label: () =>
@@ -67,7 +67,7 @@ const menuOptions: MenuOption[] = [
         },
         'Github '
       ),
-    key: 'hear-the-wind-sing',
+    key: 'github',
     icon: renderIcon(BookIcon),
   },
 ]
