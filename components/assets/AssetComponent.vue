@@ -61,17 +61,17 @@
   </n-space>
 </template>
 <script lang="ts" setup>
-import { TNode } from '@paraspell/sdk';
-import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material';
+import { TNode } from '@paraspell/sdk'
+import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material'
 import {
-NButton,
-NIcon,
-NInputNumber,
-NSelect,
-NSpace,
-NSwitch,
-type SelectOption
-} from 'naive-ui';
+  NButton,
+  NIcon,
+  NInputNumber,
+  NSelect,
+  NSpace,
+  NSwitch,
+  type SelectOption,
+} from 'naive-ui'
 
 const assetsStore = useAssetsStore()
 
@@ -83,7 +83,7 @@ const selectedNode = ref<TNode | null>(null)
 const assetOptions = computed<SelectOption[]>(() =>
   assetsStore.assetOptions.map((asset) => ({
     label: asset.symbol,
-    value: asset.assetId + '-' + asset.symbol, // Neive UI doesn't support objects as options
+    value: asset.assetId + '-' + asset.symbol + '-' + asset.decimals, // Neive UI doesn't support objects as options
   }))
 )
 const selectedAsset = ref<string | null>(null)
@@ -123,12 +123,13 @@ const canSend = computed(
   () => selectedNode.value && selectedAsset.value && balance.value > 0
 )
 const onSend = () => {
-  const [assetId, symbol] = selectedAsset.value!.split('-')
+  const [assetId, symbol, s_decimals] = selectedAsset.value!.split('-')
   assetsStore.send(
     balance.value,
     {
       assetId,
       symbol,
+      decimals: Number(s_decimals) ?? 0,
     },
     forMe.value,
     selectedNode.value!,
