@@ -41,26 +41,24 @@ export const useAssetsStore = defineStore({
       source: string,
       destination: string
     ) {
-      //TODO: Decimals currentlty not implemented on paraspell side
-      const decimals = 12
       logger.success(
         `send ${source} => ${destination}`,
-        balance * 10 ** decimals,
+        balance * 10 ** selectedAsset.decimals,
         selectedAsset,
         forMe
       )
     },
   },
   getters: {
-    nodeOptions: (state) => {
+    nodeOptions: (state: State) => {
       return NODE_NAMES.map((name) => ({ value: name, label: name }))
     },
-    assetOptions: (state): TAssetDetails[] => {
+    assetOptions: (state: State): TAssetDetails[] => {
       // check if assets are loaded
       if (!state.assets) return []
       return [
         ...state.assets.nativeAssets.reduce((acc, value) => {
-          acc.push({ assetId: 'native', symbol: value })
+          acc.push({ assetId: 'native', ...value })
           return acc
         }, [] as TAssetDetails[]),
         ...state.assets.otherAssets,
