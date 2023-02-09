@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <h1>Welcome to home page!</h1>
-    <n-space vertical>
-      <span class="filler" />
+  <nuxt-layout name="full-layout">
+    <n-space justify="center">
+      <h1>Welcome to sub-scaffold</h1>
     </n-space>
-  </div>
+    <div class="filler" />
+  </nuxt-layout>
 </template>
 
 <script setup lang="ts">
 import { NSpace } from 'naive-ui'
+definePageMeta({
+  layout: false,
+})
 </script>
 
-<style scoped lang="scss">
-.filler {
-  min-height: 80vh;
-  display: block;
-}
-</style>
+<style scoped lang="scss"></style>

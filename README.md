@@ -4,7 +4,7 @@
 
 🧪 Quickly experiment with Substrate using a frontend - [Viki Val](https://github.com/vikiival)
 
-# 🏄‍♂️ Quick Start
+## 🏄‍♂️ Quick Start
 
 Prerequisites: [Node (v16 LTS)](https://nodejs.org/en/download/) plus [pnpm](https://pnpm.io)
 
@@ -21,7 +21,7 @@ git clone https://github.com/kodadot/sub-scaffold.git
 pnpm install --shamefully-hoist
 ```
 
-> Start the development server on http://localhost:3000
+> Start the development server on <http://localhost:3000>
 
 ```bash
 pnpm dev -o

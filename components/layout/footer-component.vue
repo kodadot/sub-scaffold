@@ -2,36 +2,36 @@
   <footer>
     <div class="footer-content">
       <div class="footer-logo">
-        <img src="@/assets/images/sub-scaffold.png" alt="Logo" />
+        <img src="/images/sub-scaffold.png" alt="Logo" />
       </div>
       <div class="sponsors">
         <p class="heading">Sponsors</p>
         <p>
-          <a target="_blank" href="https://github.com/paraspell"
-            >ParaSpell<span class="icon"><OpenInNewRound /></span
-          ></a>
+          <a target="_blank" href="https://github.com/paraspell">
+            ParaSpell<span class="icon"><OpenInNewRound /> </span>
+          </a>
         </p>
       </div>
       <div class="about-section">
         <p class="heading">About</p>
         <p>
-          <a target="_blank" href="https://github.com/paraspell"
-            >ParaSpell GitHub <span class="icon"><OpenInNewRound /></span
-          ></a>
+          <a target="_blank" href="https://github.com/paraspell">
+            ParaSpell GitHub <span class="icon"><OpenInNewRound /> </span>
+          </a>
         </p>
         <p>
-          <a target="_blank" href="https://github.com/kodadot"
-            >KodaDot GitHub <span class="icon"><OpenInNewRound /></span
-          ></a>
+          <a target="_blank" href="https://github.com/kodadot">
+            KodaDot GitHub <span class="icon"><OpenInNewRound /> </span>
+          </a>
         </p>
       </div>
       <div class="socials">
         <p class="heading">Socials</p>
         <div class="socials-icons">
-          <a href=""><TelegramRound /></a>
-          <a href=""><DiscordRound /></a>
-          <a href=""><FacebookRound /></a>
-          <a href=""><RedditRound /></a>
+          <a href=""><telegram /></a>
+          <a href=""><discord /></a>
+          <a href=""><facebook /></a>
+          <a href=""><reddit /></a>
         </div>
       </div>
     </div>
@@ -40,6 +40,16 @@
     </div>
   </footer>
 </template>
+
+<script lang="ts" setup>
+import {
+  OpenInNewRound,
+  RedditRound as Reddit,
+  DiscordRound as Discord,
+  FacebookRound as Facebook,
+  TelegramRound as Telegram,
+} from '@vicons/material'
+</script>
 
 <style lang="scss">
 .footer-content {
@@ -120,13 +130,3 @@
   }
 }
 </style>
-
-<script lang="ts" setup>
-import {
-  DiscordRound,
-  FacebookRound,
-  OpenInNewRound,
-  RedditRound,
-  TelegramRound,
-} from '@vicons/material'
-</script>
