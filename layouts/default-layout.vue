@@ -26,6 +26,8 @@ import {
   useNotification,
 } from 'naive-ui'
 import type { Notification } from '~~/stores/NotificationStore'
+import FooterComponent from '~/components/layout/footer-component.vue'
+import NavbarComponent from '~/components/layout/navbar-component.vue'
 const $notifications = useNotification()
 const notificationStore = useNotificationStore()
 
