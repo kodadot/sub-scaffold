@@ -8,7 +8,8 @@
   "extends": [
     "@nuxtjs/eslint-config-typescript",
     "plugin:nuxt/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:vue/vue3-recommended"
   ],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -17,6 +18,10 @@
   },
   "plugins": ["@typescript-eslint", "vue", "nuxt"],
   "rules": {
-    "prettier": "error/error",
+    "prettier/prettier": 2,
+    "vue/attributes-order": 2,
+    "vue/singleline-html-element-content-newline": 0,
+    "vue/html-self-closing": 0,
+    "vue/multi-word-component-names": 0
   }
 }

@@ -1,6 +1,6 @@
-import { correctAddressFormat } from '@/utils/config/chain.config'
 import type { ApiPromise } from '@polkadot/api'
 import BN from 'bn.js'
+import { correctAddressFormat } from '@/utils/config/chain.config'
 
 export type ChainProperties = {
   ss58Format: number

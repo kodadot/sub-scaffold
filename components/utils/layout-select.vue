@@ -7,8 +7,8 @@
 import { NButton, NDropdown } from 'naive-ui'
 
 const options = [
-  { label: 'Default', key: 'default' },
-  { label: 'Centered full width', key: 'full-width' },
-  { label: 'Centered half', key: 'centered-half' },
+  { label: 'Centered full width', key: 'full-layout' },
+  { label: 'Default', key: 'default-layout' },
+  { label: 'Centered half', key: 'centered-layout' },
 ]
 </script>

@@ -1,7 +1,7 @@
 export default defineAppConfig({
-  title: 'B App',
+  title: 'Paraspell',
   theme: {
-    dark: true,
+    dark: false,
     colors: {
       primary: '#ff0000',
     },

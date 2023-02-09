@@ -1,12 +1,25 @@
 <template>
   <n-config-provider :theme="theme">
-    <nuxt-layout>
+    <n-notification-provider>
       <nuxt-page />
-    </nuxt-layout>
+    </n-notification-provider>
   </n-config-provider>
 </template>
 <script setup lang="ts">
-import { darkTheme, NConfigProvider } from 'naive-ui'
-
-const theme = ref(darkTheme)
+import {
+  darkTheme,
+  GlobalTheme,
+  NConfigProvider,
+  NNotificationProvider,
+} from 'naive-ui'
+const mainStore = useMainStore()
+const theme = computed<GlobalTheme | null>(() =>
+  mainStore.darkTheme ? darkTheme : null
+)
 </script>
+<style lang="scss">
+.filler {
+  min-height: 60vh;
+  display: block;
+}
+</style>
