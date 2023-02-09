@@ -1,6 +1,7 @@
 {
   "author": "Branislav Hozza",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "name": "sub-scaffold",
   "private": true,
   "scripts": {
     "build": "nuxt build",

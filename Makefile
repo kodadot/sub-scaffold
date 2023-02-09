@@ -38,4 +38,4 @@ launch:
 
 .Phone: dockerLaunch
 dockerLaunch:
-	docker build -t paraspell . && docker run -it -p 3000:3000 --rm --name paraspell1 paraspell
+	docker build -t sub-scaffold . && docker run -it -p 3000:3000 --rm --name sub-scaffold1 sub-scaffold
