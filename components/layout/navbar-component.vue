@@ -100,51 +100,12 @@ const menuOptions: MenuOption[] = [
       h(
         'a',
         {
-          href: '/channels',
-        },
-        'Channels'
-      ),
-    key: 'channels',
-    icon: renderIcon(AppsIcon),
-  },
-  {
-    label: () =>
-      h(
-        'a',
-        {
           href: '/teleport',
         },
         'Teleport'
       ),
     key: 'teleport',
     icon: renderIcon(CycloneIcon),
-  },
-  {
-    label: () =>
-      h(
-        'a',
-        {
-          href: '/xyk',
-        },
-        'XYK'
-      ),
-    key: 'xyk',
-    icon: () =>
-      h(
-        'i',
-        {
-          role: 'icon',
-          class: 'n-icon',
-          style: '--n-bezier:cubic-bezier(0.4, 0, 0.2, 1);',
-        },
-        h('img', {
-          src: darkTheme.value
-            ? '/images/bsx-ico.svg'
-            : '/images/bsx-ico-dark.svg',
-          alt: 'bsx-icon',
-          class: 'bsx-icon',
-        })
-      ),
   },
 ]
 

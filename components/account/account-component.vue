@@ -13,8 +13,9 @@
       @close="cancelModal"
     >
       <n-space vertical :size="[10, 20]">
-        <n-divider dashed> Test accounts </n-divider>
+        <n-divider v-if="devAccounts.length" dashed> Test accounts </n-divider>
         <n-button
+          v-if="devAccounts.length"
           v-for="account in devAccounts"
           :key="account.id"
           style="width: 100%"

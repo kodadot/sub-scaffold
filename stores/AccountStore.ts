@@ -42,16 +42,21 @@ export const useAccountStore = defineStore({
           id: this.idCounter++,
           ...acc,
         })),
-        ...DEVELOPMENT_ACCOUNTS.map((acc) => ({
-          id: this.idCounter++,
-          dev: true,
-          address: '//' + acc,
-          meta: {
-            source: acc,
-            name: acc,
-          },
-        })),
       ]
+      if (import.meta.env.VITE_LOCAL_TEST_NET === '1') {
+        this.accounts = [
+          ...this.accounts,
+          ...DEVELOPMENT_ACCOUNTS.map((acc) => ({
+            id: this.idCounter++,
+            dev: true,
+            address: '//' + acc,
+            meta: {
+              source: acc,
+              name: acc,
+            },
+          })),
+        ]
+      }
     },
     /**
      * Disconnect current account
