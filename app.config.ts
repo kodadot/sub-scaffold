@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  title: 'Paraspell',
+  title: 'Sub-scaffold',
   theme: {
     dark: false,
     colors: {
