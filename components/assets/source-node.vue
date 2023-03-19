@@ -30,7 +30,7 @@ const $emit = defineEmits(['change', 'clear'])
 const assetsStore = useAssetsStore()
 
 const nodeOptions = computed<Array<SelectOption | SelectGroupOption>>(() => {
-  const [availible, unavailible] = splitNodesByAvailibility(
+  const [availible, unavailible] = splitNodesByAvailability(
     assetsStore.nodeOptions,
     SUPPORTED_NODES
   )

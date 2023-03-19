@@ -27,6 +27,20 @@ pnpm install --shamefully-hoist
 pnpm dev -o
 ```
 
+## Type generation
+
+If you want to generate types from some node, you first need to generate the edgeware JSON
+
+```bash
+CHAIN_WS="ws://your.node:port" pnpm generate:edgeware 
+```
+
+Then you can generate the types
+
+```bash
+pnpm generate:defs && pnpm generate:meta
+```
+
 ## Production
 
 Build the application for production:
