@@ -25,7 +25,7 @@ const props = defineProps<{
 /// Assets logic
 const assetsStore = useAssetsStore()
 
-const availibleAssets = computed(() =>
+const availableAssets = computed(() =>
   assetsStore.assetOptions.map((asset, id) => ({ id, ...asset }))
 )
 
@@ -35,11 +35,11 @@ const isDisabled = computed(() => {
 })
 
 const assetsOptions = computed<SelectOption[]>(() => {
-  const all = availibleAssets.value.map(({ symbol, id }) => ({
+  const all = availableAssets.value.map(({ symbol, id }) => ({
     label: symbol,
     value: id,
   }))
-  const [availible, unavailible] = splitAssetsByAvailibility(
+  const [available, unavailable] = splitAssetsByAvailability(
     all,
     SUPPORTED_ASSETS
   )
@@ -47,15 +47,15 @@ const assetsOptions = computed<SelectOption[]>(() => {
   return [
     {
       type: 'group',
-      label: 'Availible assets',
-      key: 'availible',
-      children: availible,
+      label: 'Available assets',
+      key: 'available',
+      children: available,
     },
     {
       type: 'group',
       label: 'Unavailable assets',
       key: 'unavailable',
-      children: unavailible,
+      children: unavailable,
     },
   ]
 })

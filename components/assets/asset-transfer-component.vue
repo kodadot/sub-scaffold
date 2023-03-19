@@ -133,9 +133,9 @@ const isBalanceDisabled = computed(() => {
 
 watch(
   () => selectedType.value,
-  (val) => {
+  () => {
     selectedNode.value = null
-    assetsStore.selectNode(null, val === 'RtP')
+    assetsStore.selectNode(null)
   }
 )
 
@@ -145,7 +145,7 @@ const clearType = () => {
   clearNode()
 }
 const clearNode = () => {
-  assetsStore.selectNode(null, selectedType.value === 'RtP')
+  assetsStore.selectNode(null)
   selectedAsset.value = null
   clearAsset()
 }
@@ -161,10 +161,10 @@ const clearDestination = () => {
 const canSend = computed(
   () =>
     hasAccount.value &&
-    selectedType.value &&
-    (selectedNode.value || selectedType.value !== 'PtP') &&
-    (selectedDestination || selectedType.value !== 'PtR') &&
-    selectedAsset.value &&
+    selectedType.value !== null &&
+    (selectedNode.value !== null || selectedType.value === 'RtP') &&
+    (selectedDestination.value !== null || selectedType.value === 'PtR') &&
+    selectedAsset.value !== null &&
     balance.value >= 0.1
 )
 const onSend = () => {
@@ -185,15 +185,3 @@ const onSend = () => {
   )
 }
 </script>
-<style lang="scss">
-.address-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-.ammount-wrapper {
-  width: 100%;
-  display: flex;
-  gap: 12px;
-}
-</style>

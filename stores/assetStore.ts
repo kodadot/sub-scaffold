@@ -30,7 +30,7 @@ const NODES_MAP: Nodes = {
 /**
  * Shortcuts are standing for:
  * PtP -> Para to Para
- * RtP -> Relat to Para
+ * RtP -> Relay to Para
  * PtR -> Para to Relay
  */
 export type TransferType = 'PtP' | 'RtP' | 'PtR'
@@ -51,13 +51,15 @@ export const useAssetsStore = defineStore({
      * Select node to show assets
      * @param node
      */
-    selectNode(node: TNode | null, relay = false): void {
+    selectNode(node: TNode | null): void {
       const { $paraspell } = useNuxtApp()
-      // TODO: Do we want BifrostKusama as Relay chain?
-      if (relay) {
-        node = 'BifrostKusama'
-      }
       if (!node) {
+        this.assets = {
+          paraId: 1,
+          relayChainAssetSymbol: 'KSM',
+          nativeAssets: [{ symbol: 'KSM', decimals: 12 }],
+          otherAssets: [],
+        }
         return
       }
       this.assets = $paraspell.assets.getAssetsObject(node)
@@ -106,35 +108,50 @@ export const useAssetsStore = defineStore({
       const accountStore = useAccountStore()
       const wsProvider = new WsProvider(NODES_MAP[source])
       const api = await ApiPromise.create({ provider: wsProvider })
-      let builder = $paraspell.Builder(api) as any
-      if (type === 'PtR' || type === 'PtP') {
-        builder = builder.from(source)
+      const builder = $paraspell.Builder(api)
+      let extrinsic: Extrinsic | null = null
+      switch (type) {
+        case 'PtP':
+          extrinsic = builder
+            .from(source)
+            .to(destination)
+            .currency(selectedAsset.symbol)
+            .amount(balance * 10 ** selectedAsset.decimals)
+            .address(address ?? accountStore.selected!.address)
+            .build()
+          break
+        case 'RtP':
+          extrinsic = builder
+            .to(destination)
+            .amount(balance * 10 ** selectedAsset.decimals)
+            .address(address ?? accountStore.selected!.address)
+            .build()
+          break
+        case 'PtR':
+          extrinsic = builder
+            .from(source)
+            .currency(selectedAsset.symbol)
+            .amount(balance * 10 ** selectedAsset.decimals)
+            .address(address ?? accountStore.selected!.address)
+            .build()
+          break
       }
-      if (type === 'RtP' || type === 'PtP') {
-        builder = builder.to(destination)
-      }
-      if (type !== 'RtP') {
-        builder = builder.currency(selectedAsset.symbol).currencyId(0)
-      }
-      const extrinsic = builder
-        .amount(balance * 10 ** selectedAsset.decimals)
-        .address(address ?? accountStore.selected!.address)
-        .build() as Extrinsic
+
       if (!accountStore.selected) {
         return
       }
       if (accountStore.selected.dev) {
         const keyring = new Keyring({ type: 'sr25519' })
-        await extrinsic.signAndSend(
+        await extrinsic!.signAndSend(
           keyring.createFromUri(accountStore.selected.address),
-          this.handleTransactionUpdate
+          (ext) => this.handleTransactionUpdate(ext, api)
         )
       } else {
         const injector = await web3FromAddress(accountStore.selected.address)
-        await extrinsic.signAndSend(
+        await extrinsic!.signAndSend(
           accountStore.selected.address,
           { signer: injector.signer },
-          this.handleTransactionUpdate
+          (ext) => this.handleTransactionUpdate(ext, api)
         )
       }
 
@@ -145,13 +162,26 @@ export const useAssetsStore = defineStore({
         type
       )
     },
-    handleTransactionUpdate({ status, txHash }: SubmittableResult) {
+    handleTransactionUpdate(
+      { status, txHash, dispatchError }: SubmittableResult,
+      api: ApiPromise
+    ) {
       const notificationStore = useNotificationStore()
       logger.info(`Transaction hash is: ${txHash.toHex()}`)
       notificationStore.create(
         'Transaction',
         `Transaction hash is ${txHash.toHex()}`
       )
+
+      if (dispatchError) {
+        notificationStore.create(
+          'Transaction error',
+          `Transaction error ${getTxError(dispatchError, api)} at blockHash ${
+            status.asInBlock
+          }`,
+          NotificationType.Error
+        )
+      }
       if (status.isFinalized) {
         this.activeTransaction = false
         logger.success('Transaction finalized')
@@ -165,14 +195,14 @@ export const useAssetsStore = defineStore({
   },
   getters: {
     /**
-     * Getter for all availible nodes
+     * Getter for all available nodes
      * @returns Array of nodes
      */
     nodeOptions: (): DestinationOption[] => {
       return NODE_NAMES.map((name) => ({ value: name, label: name }))
     },
     /**
-     * Getter for availible assets based on selected node
+     * Getter for available assets based on selected node
      * @param state - store state
      * @returns Array of assets
      */
@@ -188,15 +218,12 @@ export const useAssetsStore = defineStore({
       ]
     },
     /**
-     * Getter for availible destination nodes based on source and asset
+     * Getter for available destination nodes based on source and asset
      * @returns Updated function
      */
     destinationOptions:
       (): Function =>
-      (
-        symbol: string,
-        currentNode: TNode = 'BifrostKusama'
-      ): DestinationOption[] => {
+      (symbol: string, currentNode: TNode | null): DestinationOption[] => {
         const { $paraspell } = useNuxtApp()
         return NODE_NAMES.filter(
           (node) =>

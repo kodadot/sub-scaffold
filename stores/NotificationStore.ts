@@ -39,7 +39,7 @@ export const useNotificationStore = defineStore({
      * Create notification in app
      * @param title - Title of notification
      * @param message - Message inside notification
-     * @param type - Type of notitifcation based on `NotificationType` enum
+     * @param type - Type of notification based on `NotificationType` enum
      * @param duration - How long should this notification last in ms
      */
     create(

@@ -8,18 +8,18 @@ export type DestinationOption = {
 }
 
 /**
- * Method to split nodes to 2 arrays by nodes availibility in Paraspell
+ * Method to split nodes to 2 arrays by nodes availability in Paraspell
  * @param nodes - All the nodes
- * @param availible - List of availible nodes
+ * @param available - List of available nodes
  * @returns [supported, unsupported]
  */
-export const splitNodesByAvailibility = (
+export const splitNodesByAvailability = (
   nodes: DestinationOption[],
-  availible: typeof SUPPORTED_NODES | SupportedNode[]
+  available: typeof SUPPORTED_NODES | SupportedNode[]
 ): [DestinationOption[], (DestinationOption & { disabled: boolean })[]] => {
   return nodes.reduce(
     (acc, val) => {
-      if (availible.find((symbol) => val.label === symbol)) {
+      if (available.find((symbol) => val.label === symbol)) {
         acc[0].push(val)
         return acc
       }
@@ -42,18 +42,18 @@ export type AssetOption = {
 }
 
 /**
- * Method to split assets to 2 arrays by asset availibility in Paraspell
+ * Method to split assets to 2 arrays by asset availability in Paraspell
  * @param nodes - All the assets
- * @param availible - List of availible assets
+ * @param available - List of available assets
  * @returns [supported, unsupported]
  */
-export const splitAssetsByAvailibility = (
+export const splitAssetsByAvailability = (
   assets: AssetOption[],
-  availible: typeof SUPPORTED_ASSETS | SupportedAsset[]
+  available: typeof SUPPORTED_ASSETS | SupportedAsset[]
 ): [AssetOption[], (AssetOption & { disabled: boolean })[]] => {
   return assets.reduce(
     (acc, val) => {
-      if (availible.find((symbol) => val.label === symbol)) {
+      if (available.find((symbol) => val.label === symbol)) {
         acc[0].push(val)
         return acc
       }
