@@ -142,16 +142,16 @@ export const useAssetsStore = defineStore({
       }
       if (accountStore.selected.dev) {
         const keyring = new Keyring({ type: 'sr25519' })
-        await extrinsic.signAndSend(
+        await extrinsic!.signAndSend(
           keyring.createFromUri(accountStore.selected.address),
-          this.handleTransactionUpdate
+          (ext) => this.handleTransactionUpdate(ext, api)
         )
       } else {
         const injector = await web3FromAddress(accountStore.selected.address)
-        await extrinsic.signAndSend(
+        await extrinsic!.signAndSend(
           accountStore.selected.address,
           { signer: injector.signer },
-          this.handleTransactionUpdate
+          (ext) => this.handleTransactionUpdate(ext, api)
         )
       }
 
@@ -162,13 +162,26 @@ export const useAssetsStore = defineStore({
         type
       )
     },
-    handleTransactionUpdate({ status, txHash }: SubmittableResult) {
+    handleTransactionUpdate(
+      { status, txHash, dispatchError }: SubmittableResult,
+      api: ApiPromise
+    ) {
       const notificationStore = useNotificationStore()
       logger.info(`Transaction hash is: ${txHash.toHex()}`)
       notificationStore.create(
         'Transaction',
         `Transaction hash is ${txHash.toHex()}`
       )
+
+      if (dispatchError) {
+        notificationStore.create(
+          'Transaction error',
+          `Transaction error ${getTxError(dispatchError, api)} at blockHash ${
+            status.asInBlock
+          }`,
+          NotificationType.Error
+        )
+      }
       if (status.isFinalized) {
         this.activeTransaction = false
         logger.success('Transaction finalized')
