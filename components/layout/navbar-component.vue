@@ -16,7 +16,8 @@
           />
         </n-space>
         <n-space align="center" :wrap-item="false">
-          <account-component />
+          <account-component v-if="appConfig.accountType !== 'eth'" />
+          <ethereum-account-component v-else />
           <dark-mode
             v-if="darkTheme"
             class="themeIcon"
@@ -44,7 +45,10 @@
             align="center"
             :wrap-item="false"
           >
-            <account-component>Select account</account-component>
+            <account-component v-if="appConfig.accountType !== 'eth'">
+              Select account
+            </account-component>
+            <ethereum-account-component v-else />
             <n-menu
               v-model:value="activeKey"
               :options="mobileMenuOptions"
@@ -68,11 +72,14 @@ import {
   DarkModeTwotone as LightMode,
   MenuFilled as MenuIcon,
   HomeFilled as HomeIcon,
+  SyncAltRound as TransferIcon,
 } from '@vicons/material'
 import type { MenuOption } from 'naive-ui'
 import { NIcon, NMenu, NSpace, NGrid, NGi } from 'naive-ui'
 import { Component, h, ref } from 'vue'
 import AccountComponent from '@/components/account/account-component.vue'
+import EthereumAccountComponent from '@/components/account/ethereum-account-component.vue'
+import appConfig from '~~/app.config'
 
 const mainStore = useMainStore()
 
@@ -95,7 +102,22 @@ const menuOptions: MenuOption[] = [
     key: 'home',
     icon: renderIcon(HomeIcon),
   },
-  {
+]
+if (appConfig.accountType === 'eth') {
+  menuOptions.push({
+    label: () =>
+      h(
+        'a',
+        {
+          href: '/token-transfer',
+        },
+        'Token Transfer'
+      ),
+    key: 'token-transfer',
+    icon: renderIcon(TransferIcon),
+  })
+} else {
+  menuOptions.push({
     label: () =>
       h(
         'a',
@@ -106,8 +128,8 @@ const menuOptions: MenuOption[] = [
       ),
     key: 'teleport',
     icon: renderIcon(CycloneIcon),
-  },
-]
+  })
+}
 
 const mobileMenuOptions: MenuOption[] = [
   {
